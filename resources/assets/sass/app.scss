@@ -1,2 +1,15 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+$font-size-base: 20px;
 
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+img {
+    max-width: 100%;
+}
+
+.pricing {
+    font-size: 2em;
+    margin: 2em 0;
+}
+
+.github-sign-up-button {
+}
