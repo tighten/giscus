@@ -12,7 +12,7 @@
     <body>
         <div class="container">
             <div class="row col-md-8 col-md-push-2">
-                <h1 class="text-center">Giscus</h1>
+                <h1 class="text-center"><img src="/giscus-logo.png" class="giscus-logo" alt="Giscus"></h1>
                 <p class="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lorem erat, luctus at diam sed, dapibus facilisis purus. In laoreet enim nunc, ut pretium arcu scelerisque in. Nunc eu cursus nibh. Etiam pulvinar vulputate libero sed molestie. In condimentum varius faucibus.</p>
                 <p><img src="http://placehold.it/900x300"></p>
                 <p>Pitch txt here lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lorem erat, luctus at diam sed, dapibus facilisis purus.</p>

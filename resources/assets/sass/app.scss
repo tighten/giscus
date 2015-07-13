@@ -2,13 +2,22 @@ $font-size-base: 20px;
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+body {
+    padding-bottom: 4rem;
+}
+
 img {
     max-width: 100%;
 }
 
+.giscus-logo {
+    margin: 4rem 0;
+    max-width: 50%;
+}
+
 .pricing {
     font-size: 2em;
-    margin: 2em 0;
+    margin: 1.5em 0;
 }
 
 .github-sign-up-button {

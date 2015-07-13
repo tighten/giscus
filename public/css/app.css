@@ -5991,11 +5991,18 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+body {
+  padding-bottom: 4rem; }
+
 img {
   max-width: 100%; }
 
+.giscus-logo {
+  margin: 4rem 0;
+  max-width: 50%; }
+
 .pricing {
   font-size: 2em;
-  margin: 2em 0; }
+  margin: 1.5em 0; }
 
 /*# sourceMappingURL=app.css.map */
