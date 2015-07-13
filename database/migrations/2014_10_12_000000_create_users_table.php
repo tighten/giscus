@@ -14,9 +14,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+
+            // Cached from Github
+            $table->string('github_id')->unique();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password', 60);
+            $table->string('email');
+            $table->string('avatar');
+            $table->string('token'); // Can we store this Github token? I hope?
+
+            //
             $table->rememberToken();
             $table->timestamps();
         });

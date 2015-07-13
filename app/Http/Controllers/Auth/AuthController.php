@@ -62,4 +62,35 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+        $authUser = $this->findByUserNameOrCreate(
+            Socialite::driver('github')->user()
+        );
+
+        $this->auth->login($authUser, true);
+    }
+
+    // Where shall we extract?
+    private function findByUserNameOrCreate($user)
+    {
+        // @todo either create the user or return it. from this:
+        // $user->getId();
+    }
 }
