@@ -5998,11 +5998,17 @@ img {
   max-width: 100%; }
 
 .giscus-logo {
-  margin: 4rem 0;
+  margin: 4rem 0 3rem;
   max-width: 50%; }
 
+.pitch {
+  font-size: 1.5em;
+  font-weight: bold; }
+
 .pricing {
-  font-size: 2em;
-  margin: 1.5em 0; }
+  font-size: 1.25em;
+  margin: 1em 0 1.5em; }
+  .pricing strong {
+    font-size: 2em; }
 
 /*# sourceMappingURL=app.css.map */

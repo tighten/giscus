@@ -13,10 +13,10 @@
         <div class="container">
             <div class="row col-md-8 col-md-push-2">
                 <h1 class="text-center"><img src="/giscus-logo.png" class="giscus-logo" alt="Giscus"></h1>
-                <p class="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lorem erat, luctus at diam sed, dapibus facilisis purus. In laoreet enim nunc, ut pretium arcu scelerisque in. Nunc eu cursus nibh. Etiam pulvinar vulputate libero sed molestie. In condimentum varius faucibus.</p>
-                <p><img src="http://placehold.it/900x300"></p>
-                <p>Pitch txt here lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lorem erat, luctus at diam sed, dapibus facilisis purus.</p>
-                <div class="pricing text-center big">
+                <p>You love Gists. They're powerful, free, and convenient. But you've probably run into Gists' one big downfall: <strong>No notifications when anyone comments.</strong></p>
+                <p class="pitch">Giscus provides the comment notification system your Gists deserve.</p>
+                <p>Receive up-to-the-hour notifications on comments on your Gists. No work on your part, cheaper than a cup of coffee, cancel any time.</p>
+                <div class="pricing well text-center big">
                     <p><strong>$3/month</strong><br>for unlimited hourly notifications</p>
                 </div>
                 <div class="text-center">
