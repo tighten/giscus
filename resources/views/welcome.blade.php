@@ -20,7 +20,7 @@
                     <p><strong>$3/month</strong><br>for unlimited hourly notifications</p>
                 </div>
                 <div class="text-center">
-                    <a class="btn btn-default btn-lg github-sign-up-button">
+                    <a href="/auth/github" class="btn btn-default btn-lg github-sign-up-button">
                         Sign Up With Github <i class="fa fa-github"></i>
                     </a>
                 </div>

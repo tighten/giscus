@@ -15,5 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('logout', 'Auth\AuthController@getLogout');
 Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('home', 'AccountController@index');
+});
