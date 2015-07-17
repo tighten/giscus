@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
+use App\User;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use Validator;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
-
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
@@ -34,32 +26,54 @@ class AuthController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Redirect the user to the GitHub authentication page.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return Response
      */
-    protected function validator(array $data)
+    public function redirectToProvider()
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        return Socialite::driver('github')->redirect();
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Obtain the user information from GitHub.
      *
-     * @param  array  $data
-     * @return User
+     * @return Response
      */
-    protected function create(array $data)
+    public function handleProviderCallback()
     {
+        try {
+            $user = Socialite::driver('github')->user();
+        } catch (Exception $e) {
+            return Redirect::to('auth/github');
+        }
+
+        $authUser = $this->findOrCreateUser($user);
+
+        Auth::login($authUser, true);
+
+        return redirect('home');
+    }
+
+    private function findOrCreateUser($user)
+    {
+        if ($authUser = User::where('github_id', $user->id)->first()) {
+            return $authUser;
+        }
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'name' => $user->name,
+            'email' => $user->email,
+            'github_id' => $user->id,
+            'avatar' => $user->avatar,
+            'token' => $user->token
         ]);
+    }
+
+    public function getLogout()
+    {
+        Auth::logout();
+
+        return redirect('/');
     }
 }
