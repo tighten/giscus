@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
 use Validator;
 
@@ -53,7 +52,7 @@ class AuthController extends Controller
 
         Auth::login($authUser, true);
 
-        return Redirect::to('home');
+        return redirect('home');
     }
 
     private function findOrCreateUser($user)
@@ -75,6 +74,6 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 }

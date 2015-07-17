@@ -8,6 +8,6 @@ class AccountController extends Controller
 {
     public function index()
     {
-        return 'Account page <a href="/logout">Log out</a>';
+        return '<div style="text-align: center; font-size: 2em; margin-top: 2em">Welcome!<br><br><a href="/logout">Log out</a></div>';
     }
 }
