@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-class AccountController extends Controller
+class SalesController extends Controller
 {
     public function index()
     {
-        return view('account');
+        return view('sales');
     }
 }

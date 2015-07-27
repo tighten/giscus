@@ -31,8 +31,8 @@ return [
 
     'stripe' => [
         'model'  => App\User::class,
-        'key'    => '',
-        'secret' => '',
+        'key'    => env('STRIPE_API_KEY'),
+        'secret' => env('STRIPE_API_SECRET'),
     ],
 
     'github' => [

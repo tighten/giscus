@@ -10,7 +10,12 @@ img {
     max-width: 100%;
 }
 
+.page-title {
+    clear: both;
+}
+
 .giscus-logo {
+    clear: both;
     margin: 4rem 0 3rem;
     max-width: 50%;
 }
@@ -30,4 +35,8 @@ img {
 }
 
 .github-sign-up-button {
+}
+
+.meta-button {
+    margin-top: 1rem;
 }
