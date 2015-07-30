@@ -3,6 +3,7 @@
 @section('content')
     <div class="row">
         <h2>Account</h2>
+        <p>You are currently subscribed to a $3/month plan with Giscus.</p>
 
         <h3>Invoices</h3>
         <ul>
@@ -13,7 +14,9 @@
         @endforeach
         </ul>
 
-        <h3>Cancel Subscription</h3>
-        <a href="/user/confirm-cancel" class="btn btn-danger">Cancel Subscription <i class="fa fa-exclamation-triangle"></i></a>
+        <br><br><br><br>
+
+        <h4>Cancel Subscription</h4>
+        <a href="/user/confirm-cancel" class="btn btn-sm btn-danger">Cancel Subscription <i class="fa fa-exclamation-triangle"></i></a>
     </div>
 @stop

@@ -18,6 +18,11 @@ img {
     clear: both;
     margin: 4rem 0 3rem;
     max-width: 50%;
+
+    &--sub-page {
+        margin-top: -2rem;
+        width: 20rem;
+    }
 }
 
 .pitch {

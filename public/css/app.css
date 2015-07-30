@@ -6004,6 +6004,9 @@ img {
   clear: both;
   margin: 4rem 0 3rem;
   max-width: 50%; }
+  .giscus-logo--sub-page {
+    margin-top: -2rem;
+    width: 20rem; }
 
 .pitch {
   font-size: 1.5em;
