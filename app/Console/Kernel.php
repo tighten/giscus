@@ -37,10 +37,11 @@ class Kernel extends ConsoleKernel
                         'since' => Carbon::now()->subDays(99) // means nothing right now
                     ]);
                 });
+
                 Log::info('Ran cron sucka');
             })
-            ->everyFiveMinutes()
-            ->sendOutputTo(storage_path('cron-or-something'))
-            ->emailOutputTo(env('MAIL_FROM_EMAIL'));
+            ->everyFiveMinutes();
+            // ->sendOutputTo(storage_path('cron-or-something'))
+            // ->emailOutputTo(env('MAIL_FROM_EMAIL'));
     }
 }
