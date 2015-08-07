@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\NotifiedComment;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class NotifyUserOfNewGistComment extends Job
@@ -17,6 +18,8 @@ class NotifyUserOfNewGistComment extends Job
         $this->sendNotificationEmail($data['comment'], $data['gist'], $data['user']);
 
         $this->markCommentAsNotified($data['comment']);
+
+        Log::info('Emailed notification for comment ' . $data['comment']['id']);
 
         $job->delete();
     }
