@@ -7,6 +7,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 
 class Kernel extends ConsoleKernel
@@ -36,9 +37,10 @@ class Kernel extends ConsoleKernel
                         'since' => Carbon::now()->subDays(99) // means nothing right now
                     ]);
                 });
+                Log::info('Ran cron sucka');
             })
             ->hourly()
-            ->sendOutputTo('/tmp/schedule-or-something')
+            ->sendOutputTo(storage_path('cron-or-something'))
             ->emailOutputTo(env('MAIL_FROM_EMAIL'));
     }
 }
