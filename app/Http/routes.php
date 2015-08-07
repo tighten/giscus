@@ -21,10 +21,3 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('sign-up', 'SignupController@index');
     Route::post('sign-up', 'SignupController@stripePostback');
 });
-
-Route::get('test', function() {
-    Queue::push(\App\Jobs\NotifyUserOfNewGistComments::class, [
-        'user' => \App\User::find(6),
-        'since' => \Carbon\Carbon::now()->subDays(99)
-    ]);
-});

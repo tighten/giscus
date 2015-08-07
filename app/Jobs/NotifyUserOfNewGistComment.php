@@ -30,8 +30,7 @@ class NotifyUserOfNewGistComment extends Job
                 'gist' => $gist,
                 'user' => $user
             ],
-            function ($message) use ($user)
-            {
+            function ($message) use ($user) {
                 $message
                     ->to($user->email, $user->name)
                     ->subject('You have a new Gist Comment!');
