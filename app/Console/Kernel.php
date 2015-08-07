@@ -28,13 +28,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            User::all()->each(function ($user) {
-                Queue::push(NotifyUserOfNewGistComments::class, [
-                    'user' => $user,
-                    'since' => Carbon::now()->subDays(99) // means nothing right now
-                ]);
-            });
-        })->hourly();
+        $schedule
+            ->call(function () {
+                User::all()->each(function ($user) {
+                    Queue::push(NotifyUserOfNewGistComments::class, [
+                        'user' => $user,
+                        'since' => Carbon::now()->subDays(99) // means nothing right now
+                    ]);
+                });
+            })
+            ->hourly()
+            ->sendOutputTo('/tmp/schedule-or-something')
+            ->emailOutputTo(env('MAIL_FROM_EMAIL'));
     }
 }
