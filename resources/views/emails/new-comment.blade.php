@@ -2,10 +2,10 @@
 
 <table>
     <tr>
-        <td style="width: 20%; vertical-align: top; text-align: right; padding-right: 0.5em;">
+        <td style="vertical-align: top; text-align: right; padding-right: 0.5em;">
             <img src="{{ $comment['user']['avatar_url'] }}&s=96" style="width: 48px; border-radius: 5px;"></td>
         </td>
-        <td style="width: 80%;">
+        <td style="">
             <div style="border: 1px solid #bfccd1; border-radius: 3px;">
                 <div style="padding: 0.75em 1em; background: #f2f8fa; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom: 1px solid #dde4e6;">
                     <a href="{{ $comment['user']['html_url'] }}" style="font-weight: bold; color: #555;">{{ $comment['user']['login'] }}</a>
