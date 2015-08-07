@@ -39,7 +39,7 @@ class Kernel extends ConsoleKernel
                 });
                 Log::info('Ran cron sucka');
             })
-            ->hourly()
+            ->everyFiveMinutes()
             ->sendOutputTo(storage_path('cron-or-something'))
             ->emailOutputTo(env('MAIL_FROM_EMAIL'));
     }
