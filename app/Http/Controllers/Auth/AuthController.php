@@ -32,7 +32,9 @@ class AuthController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver('github')
+            ->scopes(['gist', 'user:email'])
+            ->redirect();
     }
 
     /**

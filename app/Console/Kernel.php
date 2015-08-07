@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use App\Jobs\NotifyUserOfNewGistComments;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Queue;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +28,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->call(function () {
+            User::all()->each(function ($user) {
+                Queue::push(NotifyUserOfNewGistComments::class, [
+                    'user' => $user,
+                    'since' => Carbon::now()->subDays(99) // means nothing right now
+                ]);
+            });
+        })->hourly();
     }
 }
