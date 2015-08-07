@@ -31,6 +31,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule
             ->call(function () {
+                Log::info('Cron start');
+
                 User::all()->each(function ($user) {
                     Queue::push(NotifyUserOfNewGistComments::class, [
                         'user' => $user,
@@ -38,7 +40,7 @@ class Kernel extends ConsoleKernel
                     ]);
                 });
 
-                Log::info('Ran cron sucka');
+                Log::info('Cron stop');
             })
             ->everyFiveMinutes();
             // ->sendOutputTo(storage_path('cron-or-something'))
