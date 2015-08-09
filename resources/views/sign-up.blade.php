@@ -7,7 +7,7 @@
         <form action="" method="POST">
           <script
             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="pk_test_n6DGsMoQvW8pXRjsDIxC9ZWo"
+            data-key="{{ env('STRIPE_API_KEY') }}"
             data-amount="300"
             data-name="Giscus"
             data-description="Monthly Subscription ($3.00)"
