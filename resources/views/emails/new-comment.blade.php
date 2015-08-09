@@ -3,7 +3,7 @@
 <table>
     <tr>
         <td style="vertical-align: top; text-align: right; padding-right: 0.5em;">
-            <img src="{{ $comment['user']['avatar_url'] }}&s=96" style="width: 48px; border-radius: 5px;"></td>
+            <img src="{{ $comment['user']['avatar_url'] }}&s=96" style="width: 48px; border-radius: 5px;">
         </td>
         <td style="">
             <div style="border: 1px solid #bfccd1; border-radius: 3px;">
