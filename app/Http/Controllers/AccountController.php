@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AccountController extends Controller
 {
@@ -25,6 +26,10 @@ class AccountController extends Controller
 
     public function cancel()
     {
+        Log::info('User ' . Auth::user()->id . ' canceled.');
+
         Auth::user()->subscription()->cancel();
+
+        return redirect('/');
     }
 }
