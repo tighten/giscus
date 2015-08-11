@@ -17,7 +17,7 @@
         <br><br><br><br>
 
         <h4>Cancel Subscription</h4>
-        @if (Auth::user->onGracePeriod())
+        @if (Auth::user()->onGracePeriod())
             Your subscription is canceled, and your login will no longer work once the current payment period is over.
         @else
             <a href="/user/confirm-cancel" class="btn btn-sm btn-danger">Cancel Subscription <i class="fa fa-exclamation-triangle"></i></a>
