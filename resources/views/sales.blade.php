@@ -5,7 +5,7 @@
     <p class="pitch">Giscus provides the comment notification system your Gists deserve.</p>
     <p>Receive up-to-the-hour notifications on comments on your Gists. No work on your part, cheaper than a cup of coffee, cancel any time.</p>
     <div class="pricing well text-center big">
-        <p><strong>$3/month</strong><br>for unlimited hourly notifications</p>
+        <p><strong>$12/year</strong><br>for unlimited hourly notifications</p>
     </div>
     <div class="text-center">
         <a href="/auth/github" class="btn btn-default btn-lg github-sign-up-button">

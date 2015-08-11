@@ -17,7 +17,7 @@ class SignupController extends Controller
     {
         $token = Input::get('stripeToken');
 
-        Auth::user()->subscription('monthly')->create($token);
+        Auth::user()->subscription('yearly')->create($token);
 
         return Redirect::to('home');
     }
