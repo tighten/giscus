@@ -6,7 +6,7 @@ Route::get('logout', 'Auth\AuthController@getLogout');
 Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback');
 
-Route::post('stripe/webhook', 'Laravel\Cashier\WebhookController@handleWebhook');
+Route::post('stripe/webhook', '\Laravel\Cashier\WebhookController@handleWebhook');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'subscribed'], function() {
