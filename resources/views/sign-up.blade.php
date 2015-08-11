@@ -8,9 +8,9 @@
           <script
             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ env('STRIPE_API_KEY') }}"
-            data-amount="300"
+            data-amount="1200"
             data-name="Giscus"
-            data-description="Monthly Subscription ($3.00)"
+            data-description="Yearly Subscription ($12.00)"
             data-image="/giscus-stripe.png">
           </script>
         </form>

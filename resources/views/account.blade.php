@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <h2>Account</h2>
-        <p>You are currently subscribed to a $3/month plan with Giscus.</p>
+        <p>You are currently subscribed to a $12/year plan with Giscus.</p>
 
         <h3>Invoices</h3>
         <ul>
