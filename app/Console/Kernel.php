@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
 
                 Log::info('Cron stop');
             })
-            ->everyFiveMinutes();
+            ->hourly();
             // ->sendOutputTo(storage_path('cron-or-something'))
             // ->emailOutputTo(env('MAIL_FROM_EMAIL'));
     }
