@@ -3,25 +3,13 @@
 @section('content')
     <div class="row">
         <h2>Account</h2>
-        <p>You are currently subscribed to a $12/year plan with Giscus.</p>
+        <p>You're signed up to receive notifications of comments on your gists!</p>
 
-        <h3>Invoices</h3>
-        <ul>
-        @foreach (Auth::user()->invoices() as $invoice)
-            <li>{{ $invoice->dateString() }} |
-                {{ $invoice->dollars() }} |
-                <a href="/user/invoice/{{ $invoice->id }}">Download</a></li>
-        @endforeach
-        </ul>
+        <p>Having any trouble? <a href="mailto:matt@giscus.co">Contact us</a>.</p>
 
-        <br><br><br><br>
+        <br><br><br>
 
-        <h4>Cancel Subscription</h4>
-        @if (Auth::user()->onGracePeriod())
-            Your subscription is canceled, and your login will no longer work once the current payment period is over.
-        @else
-            <a href="/user/confirm-cancel" class="btn btn-sm btn-danger">Cancel Subscription <i class="fa fa-exclamation-triangle"></i></a>
-        @endif
-
+        <h4>Cancel Account</h4>
+        <a href="/user/confirm-cancel" class="btn btn-sm btn-danger">Cancel Account <i class="fa fa-exclamation-triangle"></i></a>
     </div>
 @stop

@@ -12,13 +12,6 @@ class AccountController extends Controller
         return view('account');
     }
 
-    public function downloadInvoice($invoiceId) {
-        return Auth::user()->downloadInvoice($invoiceId, [
-            'vendor'  => 'Tighten Co.',
-            'product' => 'Giscus',
-        ]);
-    }
-
     public function confirmCancel()
     {
         return view('confirm-cancel');
@@ -28,7 +21,7 @@ class AccountController extends Controller
     {
         Log::info('User ' . Auth::user()->id . ' canceled.');
 
-        Auth::user()->subscription()->cancel();
+        Auth::user()->delete();
 
         return redirect('/');
     }

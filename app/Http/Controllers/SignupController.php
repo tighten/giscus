@@ -12,13 +12,4 @@ class SignupController extends Controller
     {
         return view('sign-up');
     }
-
-    public function stripePostback()
-    {
-        $token = Input::get('stripeToken');
-
-        Auth::user()->subscription('yearly')->create($token);
-
-        return Redirect::to('home');
-    }
 }
