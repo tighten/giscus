@@ -4,11 +4,15 @@ namespace App\Jobs;
 
 use App\NotifiedComment;
 use Carbon\Carbon;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class NotifyUserOfNewGistComment extends Job
 {
+    use InteractsWithQueue, SerializesModels;
+
     public function __construct()
     {
     }

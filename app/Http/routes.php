@@ -31,4 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
 //     ];
 
 //     $command->fire($job, $data);
+
+//     return rand();
 // });
