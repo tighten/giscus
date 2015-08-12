@@ -15,3 +15,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('sign-up', 'SignupController@index');
     Route::post('sign-up', 'SignupController@stripePostback');
 });
+
+
+// class fakeJob
+// {
+//     function delete() {}
+// }
+// Route::get('test', function () {
+//     $command = new \App\Jobs\NotifyUserOfNewGistComments;
+
+//     $job = new fakeJob;
+
+//     $data = [
+//         'user' => \App\User::first(),
+//     ];
+
+//     $command->fire($job, $data);
+// });

@@ -23,7 +23,7 @@ class NotifyUserOfNewGistComments extends Job
     {
         $this->client->authenticate($data['user']->token, Client::AUTH_HTTP_TOKEN);
 
-        // Can we get only those updated since date? the API can.. can our client? and does a new comment make it marked as updated?
+        // @todo: Can we get only those updated since date? the API can.. can our client? and does a new comment make it marked as updated?
         foreach ($this->client->api('gists')->all() as $gist) {
             foreach ($this->client->api('gist')->comments()->all($gist['id']) as $comment) {
                 $this->handleComment($comment, $gist, $data['user']);
@@ -35,13 +35,17 @@ class NotifyUserOfNewGistComments extends Job
 
     private function handleComment($comment, $gist, $user)
     {
-        if ($this->commentNeedsNotification($comment)) {
+        if ($this->commentNeedsNotification($comment, $user)) {
             $this->notifyComment($comment, $gist, $user);
         }
     }
 
-    private function commentNeedsNotification($comment)
+    private function commentNeedsNotification($comment, $user)
     {
+        if ($comment['updated_at'] < $user['created_at']) {
+            return false;
+        }
+
         return NotifiedComment::where('github_id', $comment['id'])
             ->where('github_updated_at', $comment['updated_at'])
             ->count() == 0;
