@@ -7,40 +7,44 @@ use Exception;
 use Github\Client;
 use Github\Exception\ExceptionInterface;
 use Github\HttpClient\CachedHttpClient;
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 
-class NotifyUserOfNewGistComments extends Job
+class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
     private $client;
+    private $user;
 
-    public function __construct()
+    public function __construct($user)
     {
+        $this->user = $user;
+
         // @todo: Bind and inject
         $this->client = new Client(
             new CachedHttpClient(['cache_dir' => '/tmp/github-api-cache'])
         );
     }
 
-    public function fire($job, $data)
+    public function handle()
     {
-        $this->client->authenticate($data['user']->token, Client::AUTH_HTTP_TOKEN);
+        $this->client->authenticate($this->user->token, Client::AUTH_HTTP_TOKEN);
 
         try {
             // @todo: Can we get only those updated since date? the API can.. can our client? and does a new comment make it marked as updated?
             foreach ($this->client->api('gists')->all() as $gist) {
                 foreach ($this->client->api('gist')->comments()->all($gist['id']) as $comment) {
-                    $this->handleComment($comment, $gist, $data['user']);
+                    $this->handleComment($comment, $gist, $this->user);
                 }
             }
-
-            $job->delete();
         } catch (ExceptionInterface $e) {
-            Log::info('Comments get for user ' . $data['user']->id. '. Delayed execution for 60 minutes after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
+            Log::info('Comments get for user ' . $this->user->id. '. Delayed execution for 60 minutes after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
             $this->release(3600);
         } catch (Exception $e) {
             Log::info('Delayed execution for 2 seconds after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
@@ -68,10 +72,10 @@ class NotifyUserOfNewGistComments extends Job
 
     private function notifyComment($comment, $gist, $user)
     {
-        Queue::push(NotifyUserOfNewGistComment::class, [
-            'user' => $user,
-            'comment' => $comment,
-            'gist' => $gist
-        ]);
+        $this->dispatch(new NotifyUserOfNewGistComment(
+            $user,
+            $comment,
+            $gist
+        ));
     }
 }

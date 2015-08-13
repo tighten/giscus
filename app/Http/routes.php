@@ -16,21 +16,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('sign-up', 'SignupController@stripePostback');
 });
 
+Route::get('test', function (\Illuminate\Contracts\Bus\Dispatcher $bus) {
+    $bus->dispatch(new \App\Jobs\NotifyUserOfNewGistComments(
+        \App\User::first()
+    ));
 
-// class fakeJob
-// {
-//     function delete() {}
-// }
-// Route::get('test', function () {
-//     $command = new \App\Jobs\NotifyUserOfNewGistComments;
-
-//     $job = new fakeJob;
-
-//     $data = [
-//         'user' => \App\User::first(),
-//     ];
-
-//     $command->fire($job, $data);
-
-//     return rand();
-// });
+    return rand();
+});

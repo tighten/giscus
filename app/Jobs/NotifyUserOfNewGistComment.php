@@ -4,28 +4,35 @@ namespace App\Jobs;
 
 use App\NotifiedComment;
 use Carbon\Carbon;
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class NotifyUserOfNewGistComment extends Job
+class NotifyUserOfNewGistComment extends Job implements SelfHandling, ShouldQueue
 {
+    private $user;
+    private $comment;
+    private $gist;
+
     use InteractsWithQueue, SerializesModels;
 
-    public function __construct()
+    public function __construct($user, $comment, $gist)
     {
+        $this->user = $user;
+        $this->comment = $comment;
+        $this->gist = $gist;
     }
 
-    public function fire($job, $data)
+    public function handle()
     {
-        $this->sendNotificationEmail($data['comment'], $data['gist'], $data['user']);
+        $this->sendNotificationEmail($comment, $gist, $user);
 
-        $this->markCommentAsNotified($data['comment']);
+        $this->markCommentAsNotified($comment);
 
-        Log::info('Emailed notification for comment ' . $data['comment']['id']);
-
-        $job->delete();
+        Log::info('Emailed notification for comment ' . $comment['id']);
     }
 
     private function sendNotificationEmail($comment, $gist, $user)
