@@ -15,7 +15,7 @@
                 @if (Auth::check())
                 <a href="/logout" class="btn btn-default pull-right meta-button">Log out <i class="fa fa-sign-out"></i></a>
                 @else
-                <a href="/auth/github" class="btn btn-default pull-right meta-button">Log in with Github <i class="fa fa-github"></i></a>
+                <a href="/auth/github" class="btn btn-default pull-right meta-button">Log in with GitHub <i class="fa fa-github"></i></a>
                 @endif
                 <h1 class="text-center page-title page-title--sub-page"><img src="/giscus-logo.png" class="giscus-logo giscus-logo--sub-page" alt="Giscus"></h1>
             </div>

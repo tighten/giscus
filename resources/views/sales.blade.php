@@ -13,7 +13,7 @@
     </div>
     <div class="text-center">
         <a href="/auth/github" class="btn btn-default btn-lg github-sign-up-button">
-            Sign Up With Github <i class="fa fa-github"></i>
+            Sign Up With GitHub <i class="fa fa-github"></i>
         </a>
     </div>
 @stop
