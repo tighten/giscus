@@ -28,6 +28,7 @@ class NotifyUserOfNewGistComments extends Job
 
     public function fire($job, $data)
     {
+        Log::info(print_r($data['user'], true)); // For seeing if token is working
         $this->client->authenticate($data['user']->token, Client::AUTH_HTTP_TOKEN);
 
         try {
@@ -40,10 +41,10 @@ class NotifyUserOfNewGistComments extends Job
 
             $job->delete();
         } catch (ExceptionInterface $e) {
-            Log::info('Delayed execution for 60 minutes. ' . $e->getMessage());
+            Log::info('Delayed execution for 60 minutes after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
             $this->release(3600);
         } catch (Exception $e) {
-            Log::info('Delayed execution for 2 seconds. ' . $e->getMessage());
+            Log::info('Delayed execution for 2 seconds after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
             $this->release(2);
         }
     }
