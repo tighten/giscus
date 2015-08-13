@@ -28,11 +28,11 @@ class NotifyUserOfNewGistComment extends Job implements SelfHandling, ShouldQueu
 
     public function handle()
     {
-        $this->sendNotificationEmail($comment, $gist, $user);
+        $this->sendNotificationEmail($this->comment, $this->gist, $this->user);
 
-        $this->markCommentAsNotified($comment);
+        $this->markCommentAsNotified($this->comment);
 
-        Log::info('Emailed notification for comment ' . $comment['id']);
+        Log::info('Emailed notification for comment ' . $this->comment['id']);
     }
 
     private function sendNotificationEmail($comment, $gist, $user)
