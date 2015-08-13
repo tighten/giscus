@@ -40,7 +40,7 @@ class NotifyUserOfNewGistComments extends Job
 
             $job->delete();
         } catch (ExceptionInterface $e) {
-            Log::info('Delayed execution for 60 minutes after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
+            Log::info('Comments get for user ' . $data['user']->id. '. Delayed execution for 60 minutes after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
             $this->release(3600);
         } catch (Exception $e) {
             Log::info('Delayed execution for 2 seconds after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
