@@ -28,7 +28,6 @@ class NotifyUserOfNewGistComments extends Job
 
     public function fire($job, $data)
     {
-        Log::info(print_r($data['user'], true)); // For seeing if token is working
         $this->client->authenticate($data['user']->token, Client::AUTH_HTTP_TOKEN);
 
         try {
