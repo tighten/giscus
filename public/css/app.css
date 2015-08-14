@@ -6003,21 +6003,29 @@ img {
 .giscus-logo {
   clear: both;
   margin: 4rem 0 3rem;
-  max-width: 50%; }
-  .giscus-logo--sub-page {
-    margin-top: -2rem;
-    width: 20rem; }
+  max-width: 40rem; }
+  @media only screen and (max-width: 600px) {
+    .giscus-logo {
+      width: 75%; } }
 
 .pitch {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: bold;
   line-height: 1.1; }
+  @media only screen and (min-width: 600px) {
+    .pitch {
+      font-size: 1.5em; } }
 
 .pricing {
   font-size: 1.25em;
   margin: 1em 0 1.5em; }
   .pricing strong {
     font-size: 2em; }
+
+@media only screen and (min-width: 1000px) {
+  .github-sign-up-button, .meta-button {
+    padding-left: 1.5em;
+    padding-right: 1.5em; } }
 
 .meta-button {
   margin-top: 1rem; }
