@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\ClearBeanstalkdQueueCommand::class,
         \App\Console\Commands\QueueCommentsForUser::class,
+        \App\Console\Commands\QueueCommentsForAllUsers::class,
     ];
 
     /**
@@ -35,17 +36,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule
-            ->call(function () {
-                Log::info('Cron start');
-
-                User::all()->each(function ($user) {
-                    $this->dispatch(new NotifyUserOfNewGistComments($user));
-                });
-
-                Log::info('Cron stop');
-            })
+            ->command('giscus:queueForUsers')
             ->hourly();
-            // ->sendOutputTo(storage_path('cron-or-something'))
-            // ->emailOutputTo(env('MAIL_FROM_EMAIL'));
     }
 }
