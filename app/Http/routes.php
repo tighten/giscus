@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', ['middleware' => 'guest', 'uses' => 'SalesController@index']);
+Route::get('/', ['middleware' => 'guest', 'uses' => 'WelcomeController@index']);
 
 Route::get('logout', 'Auth\AuthController@getLogout');
 Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
@@ -16,10 +16,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('sign-up', 'SignupController@stripePostback');
 });
 
-Route::get('test', function (\Illuminate\Contracts\Bus\Dispatcher $bus) {
-    $bus->dispatch(new \App\Jobs\NotifyUserOfNewGistComments(
-        \App\User::first()
-    ));
+// Route::get('test', function (\Illuminate\Contracts\Bus\Dispatcher $bus) {
+//     $bus->dispatch(new \App\Jobs\NotifyUserOfNewGistComments(
+//         \App\User::first()
+//     ));
 
-    return rand();
-});
+//     return rand();
+// });
