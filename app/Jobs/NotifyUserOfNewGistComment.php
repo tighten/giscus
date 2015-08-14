@@ -28,6 +28,15 @@ class NotifyUserOfNewGistComment extends Job implements SelfHandling, ShouldQueu
 
     public function handle()
     {
+        if ($this->commentNoLongerNeedsNotification()) {
+            Log::info(sprintf(
+                'Skipped emailing notification for comment %s because it no longer needs notification.',
+                $this->comment['id']
+            ));
+
+            return true;
+        }
+
         $this->sendNotificationEmail($this->comment, $this->gist, $this->user);
 
         $this->markCommentAsNotified($this->comment);
@@ -61,5 +70,12 @@ class NotifyUserOfNewGistComment extends Job implements SelfHandling, ShouldQueu
         $eloquentComment->github_updated_at = Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $comment['updated_at']);
 
         $eloquentComment->save();
+    }
+
+    private function commentNoLongerNeedsNotification()
+    {
+        return NotifiedComment::where('github_id', $this->comment['id'])
+            ->where('github_updated_at', $this->comment['updated_at'])
+            ->count() > 0;
     }
 }
