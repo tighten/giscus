@@ -44,10 +44,24 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
                 }
             }
         } catch (ExceptionInterface $e) {
-            Log::info('Comments get for user ' . $this->user->id. '. Delayed execution for 60 minutes after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
+            Log::info(sprintf(
+                'Attempting to queue "get comments" for user %s after GitHub exception. Delayed exceution for 60 minutes after (%d) attempts. Message: [%s] Exception class: [%s]',
+                $this->user->id,
+                $this->attempts(),
+                $e->getMessage(),
+                get_class($e)
+            ));
+
             $this->release(3600);
         } catch (Exception $e) {
-            Log::info('Delayed execution for 2 seconds after (' . $this->attempts() . ') attempts. ' . $e->getMessage());
+            Log::info(sprintf(
+                'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
+                $this->user->id,
+                $this->attempts(),
+                $e->getMessage(),
+                get_class($e)
+            ));
+
             $this->release(2);
         }
     }
