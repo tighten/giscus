@@ -6,7 +6,6 @@ use App\NotifiedComment;
 use Exception;
 use Github\Client;
 use Github\Exception\ExceptionInterface;
-use Github\HttpClient\CachedHttpClient;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -19,27 +18,21 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
 {
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
-    private $client;
     private $user;
 
     public function __construct($user)
     {
         $this->user = $user;
-
-        // @todo: Bind and inject
-        $this->client = new Client(
-            new CachedHttpClient(['cache_dir' => '/tmp/github-api-cache'])
-        );
     }
 
-    public function handle()
+    public function handle(Client $client)
     {
-        $this->client->authenticate($this->user->token, Client::AUTH_HTTP_TOKEN);
+        $client->authenticate($this->user->token, Client::AUTH_HTTP_TOKEN);
 
         try {
             // @todo: Can we get only those updated since date? the API can.. can our client? and does a new comment make it marked as updated?
-            foreach ($this->client->api('gists')->all() as $gist) {
-                foreach ($this->client->api('gist')->comments()->all($gist['id']) as $comment) {
+            foreach ($client->api('gists')->all() as $gist) {
+                foreach ($client->api('gist')->comments()->all($gist['id']) as $comment) {
                     $this->handleComment($comment, $gist, $this->user);
                 }
             }
