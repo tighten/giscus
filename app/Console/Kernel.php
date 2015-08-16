@@ -37,6 +37,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule
             ->command('giscus:queueForUsers')
-            ->hourly();
+            ->everyThirtyMinutes();
     }
 }
