@@ -16,7 +16,7 @@
                     <a href="{{ $gist['html_url'] }}#gistcomment-{{ $comment['id'] }}" style="color: #555;" title="{{ $date->format('g:ia \o\n F j, Y') }} GMT">{{ $date->diffForHumans() }}</a>
                 </div>
                 <div style="padding: 1em;">
-                    {!! str_replace("\n", "<br>", $comment['body']) !!}
+                    {!! $body !!}
                 </div>
             </div>
         </td>

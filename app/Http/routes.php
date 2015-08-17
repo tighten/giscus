@@ -16,10 +16,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('sign-up', 'SignupController@stripePostback');
 });
 
-// Route::get('test', function (\Illuminate\Contracts\Bus\Dispatcher $bus) {
-//     $bus->dispatch(new \App\Jobs\NotifyUserOfNewGistComments(
-//         \App\User::first()
-//     ));
+Route::get('test', function (\Illuminate\Contracts\Bus\Dispatcher $bus) {
+    $message = "# Hello world!\n*this* is _great_ :+1:\nyup yup";
+    // $body = json_encode([
+    //     'text' => $message
+    // ]);
 
-//     return rand();
-// });
+    $user = \App\User::first();
+    $parser = app('App\GitHubMarkdownParser', [$user]);
+
+    // $client = new Github\Client();
+    // $client->authenticate($user->token, \Github\Client::AUTH_HTTP_TOKEN);
+    // $response = $client->getHttpClient()->post('markdown', $body);
+    // $output = \Github\HttpClient\Message\ResponseMediator::getContent($response);
+    // dd($output);
+    dd($parser->parse($message));
+
+    // $client = app('Github\Client');
+    // $user = \App\User::first();
+    // $client->authenticate($user->token, \Github\Client::AUTH_HTTP_TOKEN);
+    $bus->dispatch(new \App\Jobs\NotifyUserOfNewGistComments(
+        \App\User::first()
+    ));
+
+    return rand();
+});

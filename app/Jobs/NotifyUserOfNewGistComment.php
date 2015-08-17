@@ -46,12 +46,15 @@ class NotifyUserOfNewGistComment extends Job implements SelfHandling, ShouldQueu
 
     private function sendNotificationEmail($comment, $gist, $user)
     {
+        $parser = app('App\GitHubMarkdownParser', [$user]);
+
         Mail::send(
             'emails.new-comment',
             [
                 'comment' => $comment,
                 'gist' => $gist,
-                'user' => $user
+                'user' => $user,
+                'body' => $parser->parse($comment['body'])
             ],
             function ($message) use ($user) {
                 $message
