@@ -17,12 +17,17 @@
                 @if (Auth::check())
                 <a href="/logout" class="btn btn-default pull-right meta-button">Log out <i class="fa fa-sign-out"></i></a>
                 @else
-                <a href="/auth/github" class="btn btn-default pull-right meta-button">Log in with GitHub <i class="fa fa-github"></i></a>
+                <a href="/auth/github" class="btn btn-default pull-right meta-button"><i class="fa fa-github"></i> Log in with GitHub</a>
                 @endif
                 <h1 class="text-center page-title page-title"><img src="/giscus-logo.png" class="giscus-logo giscus-logo" alt="Giscus"></h1>
             </div>
             <div class="row col-md-8 col-md-push-2">
                 @yield('content')
+            </div>
+
+            <div class="row col-md-8 col-md-push-2 text-center footer">
+                Giscus' source is on GitHub: <a href="https://github.com/tightenco/giscus">tightenco/giscus</a>.<br>
+                By <a href="http://mattstauffer.co/">Matt Stauffer</a>, for a <a href="https://speakerdeck.com/mattstauffer/leveraging-laravel-launching-side-projects-quickly-with-laravel">talk at Laracon 2015</a>, powered by <a href="http://www.laravel.com/">Laravel</a>.
             </div>
         </div>
 
