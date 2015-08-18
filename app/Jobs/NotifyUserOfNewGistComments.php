@@ -68,7 +68,7 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
 
     private function commentNeedsNotification($comment, $user)
     {
-        if ($comment['updated_at'] < $user['created_at']) {
+        if ($comment['updated_at'] < $user->created_at || $comment['user']['id'] == $user->github_id) {
             return false;
         }
 
