@@ -50,11 +50,20 @@ class AuthController extends Controller
             return redirect('auth/github');
         }
 
+        if (! $user->email) {
+            return redirect('no-email');
+        }
+
         $authUser = $this->findOrCreateUser($user);
 
         Auth::login($authUser, true);
 
         return redirect('home');
+    }
+
+    public function noEmail()
+    {
+        return view('y-u-no-email');
     }
 
     private function findOrCreateUser($user)
