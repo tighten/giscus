@@ -16,6 +16,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
+        if (file_exists(dirname(__DIR__) . '/.env.test')) {
+            Dotenv::load(dirname(__DIR__), '.env.test');
+        }
+
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();

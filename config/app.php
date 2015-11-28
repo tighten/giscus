@@ -145,6 +145,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
+        App\Providers\GitHubServiceProvider::class,
     ],
 
     /*
