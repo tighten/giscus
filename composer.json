@@ -11,7 +11,8 @@
         "laravel/cashier": "~5.0",
         "knplabs/github-api": "~1.4",
         "pda/pheanstalk": "~3.0",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "bugsnag/bugsnag-laravel": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

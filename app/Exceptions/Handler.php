@@ -2,9 +2,9 @@
 
 namespace App\Exceptions;
 
+use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {

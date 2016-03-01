@@ -146,6 +146,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
         App\Providers\GitHubServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
     ],
 
     /*
@@ -194,6 +195,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Bugsnag'   => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
     ],
 
 ];
