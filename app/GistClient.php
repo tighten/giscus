@@ -20,7 +20,7 @@ class GistClient
     private function pagedAuthenticatedCall($api, $method, $user, $parameters = [])
     {
         $this->client->authenticate($user->token, Client::AUTH_HTTP_TOKEN);
-        $api = $this->client->api($api); 
+        $api = $this->client->api($api);
 
         $paginator = new ResultPager($this->client);
         $parameters = array_merge(['github'], $parameters); // wut?
