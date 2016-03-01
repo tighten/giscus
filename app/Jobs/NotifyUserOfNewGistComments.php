@@ -2,9 +2,10 @@
 
 namespace App\Jobs;
 
+use App\GistClient;
 use App\NotifiedComment;
 use Exception;
-use Github\Client;
+use Github\Client as GithubClient;
 use Github\Exception\ExceptionInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,20 +26,20 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
         $this->user = $user;
     }
 
-    public function handle(Client $client)
+    public function handle(GistClient $gistclient, GithubClient $github)
     {
-        $client->authenticate($this->user->token, Client::AUTH_HTTP_TOKEN);
+        Log::debug('Notifying user ' . $this->user->id . ' of new comments');
 
         try {
-            // @todo: Can we get only those updated since date? the API can.. can our client? and does a new comment make it marked as updated?
-            foreach ($client->api('gists')->all() as $gist) {
-                foreach ($client->api('gist')->comments()->all($gist['id']) as $comment) {
+            foreach ($gistclient->all($this->user) as $gist) {
+                Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id']);
+                foreach ($github->api('gist')->comments()->all($gist['id']) as $comment) {
                     $this->handleComment($comment, $gist, $this->user);
                 }
             }
         } catch (ExceptionInterface $e) {
             Log::info(sprintf(
-                'Attempting to queue "get comments" for user %s after GitHub exception. Delayed exceution for 60 minutes after (%d) attempts. Message: [%s] Exception class: [%s]',
+                'Attempting to queue "get comments" for user %s after GitHub exception. Delayed execution for 60 minutes after (%d) attempts. Message: [%s] Exception class: [%s]',
                 $this->user->id,
                 $this->attempts(),
                 $e->getMessage(),
@@ -61,7 +62,10 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
 
     private function handleComment($comment, $gist, $user)
     {
+        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id']);
+
         if ($this->commentNeedsNotification($comment, $user)) {
+            Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . ': NEEDS IT');
             $this->notifyComment($comment, $gist, $user);
         }
     }
