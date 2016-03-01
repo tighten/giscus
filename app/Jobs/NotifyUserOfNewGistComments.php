@@ -6,14 +6,13 @@ use App\GistClient;
 use App\NotifiedComment;
 use Exception;
 use Github\Client as GithubClient;
-use Github\Exception\ExceptionInterface;
+use Github\Exception\ExceptionInterface as GithubException;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Queue;
 
 class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQueue
 {
@@ -37,7 +36,7 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
                     $this->handleComment($comment, $gist, $this->user);
                 }
             }
-        } catch (ExceptionInterface $e) {
+        } catch (GithubException $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after GitHub exception. Delayed execution for 60 minutes after (%d) attempts. Message: [%s] Exception class: [%s]',
                 $this->user->id,
@@ -62,10 +61,9 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
 
     private function handleComment($comment, $gist, $user)
     {
-        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id']);
+        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . '?');
 
         if ($this->commentNeedsNotification($comment, $user)) {
-            Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . ': NEEDS IT');
             $this->notifyComment($comment, $gist, $user);
         }
     }
@@ -83,6 +81,8 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
 
     private function notifyComment($comment, $gist, $user)
     {
+        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . ': NEEDS IT');
+
         $this->dispatch(new NotifyUserOfNewGistComment(
             $user,
             $comment,
