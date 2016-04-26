@@ -4,14 +4,13 @@ namespace App\Jobs;
 
 use App\NotifiedComment;
 use Carbon\Carbon;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class NotifyUserOfNewGistComment extends Job implements SelfHandling, ShouldQueue
+class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 {
     private $user;
     private $comment;
