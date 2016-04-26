@@ -6,7 +6,6 @@ use App\NotifiedComment;
 use Exception;
 use Github\Client;
 use Github\Exception\ExceptionInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 
-class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQueue
+class NotifyUserOfNewGistComments extends Job implements  ShouldQueue
 {
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
