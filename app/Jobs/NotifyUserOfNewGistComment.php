@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class NotifyUserOfNewGistComment extends Job implements  ShouldQueue
+class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 {
     private $user;
     private $comment;

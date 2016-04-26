@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 
-class NotifyUserOfNewGistComments extends Job implements  ShouldQueue
+class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
