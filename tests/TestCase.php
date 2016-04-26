@@ -1,5 +1,7 @@
 <?php
 
+use Dotenv\Dotenv;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -17,7 +19,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function createApplication()
     {
         if (file_exists(dirname(__DIR__) . '/.env.test')) {
-            Dotenv::load(dirname(__DIR__), '.env.test');
+            (new \Dotenv\Dotenv(dirname(__DIR__), '.env.test'))->load();
         }
 
         $app = require __DIR__.'/../bootstrap/app.php';
