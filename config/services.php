@@ -41,5 +41,7 @@ return [
         'redirect' => env('GITHUB_URL'),
     ],
 
-
+    'sparkpost' => [
+        'secret' => env('SPARKPOST_API_KEY'),
+    ]
 ];
