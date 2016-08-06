@@ -45,9 +45,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
                 get_class($e)
             ));
 
-            $this->handleBrokenGitHubToken($this->user);
-
-            $this->delete();
+            $this->handleGitHubException($e, $this->user);
         } catch (Exception $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
@@ -86,6 +84,17 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
             $comment,
             $gist
         ));
+    }
+
+    private function handleGitHubException($e, $user)
+    {
+        if($e->getCode() !== 401) {
+            return $this->release(3600);
+        }
+
+        $this->handleBrokenGitHubToken($user);
+
+        $this->delete();
     }
 
     private function handleBrokenGitHubToken($user)
