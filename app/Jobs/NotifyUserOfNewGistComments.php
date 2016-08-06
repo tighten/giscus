@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Mail;
 
 class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
@@ -44,7 +45,9 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
                 get_class($e)
             ));
 
-            $this->release(3600);
+            $this->handleBrokenGitHubToken($this->user);
+
+            $this->delete();
         } catch (Exception $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
@@ -83,5 +86,34 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
             $comment,
             $gist
         ));
+    }
+
+    private function handleBrokenGitHubToken($user)
+    {
+        $this->deleteUser($user);
+
+        $this->sendNotificationEmail($user);
+    }
+
+    private function deleteUser($user)
+    {
+        Log::info('Deleting user ' . $user->id . ' (' . $user->email . ') due to broken GitHub token.');
+
+        $user->delete();
+    }
+
+    private function sendNotificationEmail($user)
+    {
+        Mail::send(
+            'emails.broken-github-token',
+            [
+                'user' => $user,
+            ],
+            function ($message) use ($user) {
+                $message
+                    ->to($user->email, $user->name)
+                    ->subject('We\'ve lost contact with your GitHub account.');
+            }
+        );
     }
 }
