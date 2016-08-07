@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Jobs\CancelUserForBadCredentials;
 use App\NotifiedComment;
 use Exception;
 use Github\Client;
@@ -11,8 +12,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 
 class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
@@ -88,41 +89,17 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     private function handleGitHubException(Client $client, $user)
     {
-        if ($client->getHttpClient()->getLastResponse()->getStatusCode() !== 401) {
-            return $this->release(3600);
+        if ($client->getHttpClient()->getLastResponse()->getStatusCode() === 401) {
+            return $this->handleBrokenGitHubToken($user);
         }
 
-        $this->handleBrokenGitHubToken($user);
-
-        $this->delete();
+        $this->release(3600);
     }
 
     private function handleBrokenGitHubToken($user)
     {
-        $this->deleteUser($user);
+        $this->dispatch(new CancelUserForBadCredentials($user));
 
-        $this->sendNotificationEmail($user);
-    }
-
-    private function deleteUser($user)
-    {
-        Log::info('Deleting user ' . $user->id . ' (' . $user->email . ') due to broken GitHub token.');
-
-        $user->delete();
-    }
-
-    private function sendNotificationEmail($user)
-    {
-        Mail::send(
-            'emails.broken-github-token',
-            [
-                'user' => $user,
-            ],
-            function ($message) use ($user) {
-                $message
-                    ->to($user->email, $user->name)
-                    ->subject('We\'ve lost contact with your GitHub account.');
-            }
-        );
+        $this->delete();
     }
 }
