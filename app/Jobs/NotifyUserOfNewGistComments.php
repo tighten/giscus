@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Jobs\CancelUserForBadCredentials;
 use App\NotifiedComment;
 use Exception;
 use Github\Client;
@@ -11,6 +12,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
 
 class NotifyUserOfNewGistComments extends Job implements ShouldQueue
@@ -44,7 +46,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
                 get_class($e)
             ));
 
-            $this->release(3600);
+            $this->handleGitHubException($client, $this->user);
         } catch (Exception $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
@@ -83,5 +85,21 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
             $comment,
             $gist
         ));
+    }
+
+    private function handleGitHubException(Client $client, $user)
+    {
+        if ($client->getHttpClient()->getLastResponse()->getStatusCode() === 401) {
+            return $this->handleBrokenGitHubToken($user);
+        }
+
+        $this->release(3600);
+    }
+
+    private function handleBrokenGitHubToken($user)
+    {
+        $this->dispatch(new CancelUserForBadCredentials($user));
+
+        $this->delete();
     }
 }
