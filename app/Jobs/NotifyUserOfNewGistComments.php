@@ -39,7 +39,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
             }
         } catch (ExceptionInterface $e) {
             Log::info(sprintf(
-                'Attempting to queue "get comments" for user %s after GitHub exception. Delayed exceution for 60 minutes after (%d) attempts. Message: [%s] Exception class: [%s]',
+                'Attempting to queue "get comments" for user %s after GitHub exception. Delayed execution for 60 minutes after (%d) attempts. Message: [%s] Exception class: [%s]',
                 $this->user->id,
                 $this->attempts(),
                 $e->getMessage(),
