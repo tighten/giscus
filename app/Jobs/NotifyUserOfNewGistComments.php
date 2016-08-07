@@ -46,7 +46,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
                 get_class($e)
             ));
 
-            $this->handleGitHubException($client, $this->user);
+            $this->handleGitHubException($client, $e);
         } catch (Exception $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
@@ -87,18 +87,20 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
         ));
     }
 
-    private function handleGitHubException(Client $client, $user)
+    private function handleGitHubException(Client $client, $e)
     {
-        if ($client->getHttpClient()->getLastResponse()->getStatusCode() === 401) {
-            return $this->handleBrokenGitHubToken($user);
+        // Because I don't have time to debug someone else's broken PR right now.
+        // if ($client->getHttpClient()->getLastResponse()->getStatusCode() === 401) {
+        if ($e->getMessage() == 'Bad credentials') {
+            return $this->handleBrokenGitHubToken();
         }
 
         $this->release(3600);
     }
 
-    private function handleBrokenGitHubToken($user)
+    private function handleBrokenGitHubToken()
     {
-        $this->dispatch(new CancelUserForBadCredentials($user));
+        $this->dispatch(new CancelUserForBadCredentials($this->user));
 
         $this->delete();
     }
