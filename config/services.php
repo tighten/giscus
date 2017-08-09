@@ -14,9 +14,15 @@ return [
     |
     */
 
+    'github' => [
+        'client_id' => env('GITHUB_ID'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect' => env('GITHUB_URL'),
+    ],
+    
     'mailgun' => [
-        'domain' => '',
-        'secret' => '',
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
     ],
 
     'mandrill' => [
@@ -24,24 +30,18 @@ return [
     ],
 
     'ses' => [
-        'key'    => '',
-        'secret' => '',
+        'key' => env('SES_KEY'),
+        'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
-    ],
-
-    'stripe' => [
-        'model'  => App\User::class,
-        'key'    => env('STRIPE_API_KEY'),
-        'secret' => env('STRIPE_API_SECRET'),
-    ],
-
-    'github' => [
-        'client_id' => env('GITHUB_ID'),
-        'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => env('GITHUB_URL'),
     ],
 
     'sparkpost' => [
         'secret' => env('SPARKPOST_API_KEY'),
-    ]
+    ],
+
+    'stripe' => [
+        'model' => App\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
 ];
