@@ -39,6 +39,7 @@ class Kernel extends ConsoleKernel
             ->command('giscus:queueForUsers')
             ->everyThirtyMinutes();
     }
+
     /**
      * Register the Closure based commands for the application.
      *
