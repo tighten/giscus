@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
 
             // Cached from Github
             $table->string('github_id')->unique();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email');
             $table->string('avatar');
             $table->string('token'); // Can we store this Github token? I hope?
