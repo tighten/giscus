@@ -50,7 +50,7 @@ class NotifyUserOfNewGistCommentTest extends TestCase
     /**
      * @test
      */
-    public function it_sends_new_comment_email_when_a_comment_has_been_edited()
+    public function it_sends_edit_comment_email_when_a_comment_has_been_edited()
     {
         $comment = [
             'id' => 1,
