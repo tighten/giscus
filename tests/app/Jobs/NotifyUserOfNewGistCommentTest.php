@@ -25,7 +25,7 @@ class NotifyUserOfNewGistCommentTest extends TestCase
         $notifiedComment->save();
 
         Mail::shouldReceive('send')
-            ->andReturnUsing(function($view, $data, $callback) {
+            ->andReturnUsing(function ($view, $data, $callback) {
                 $this->mailSendData = [$view, $data, $callback];
             });
     }
