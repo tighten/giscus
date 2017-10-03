@@ -12,9 +12,9 @@ class AllowBlankNames extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('name')->nullable()->change();
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->string('name')->nullable()->change();
+        // });
     }
 
     /**
@@ -24,7 +24,7 @@ class AllowBlankNames extends Migration
      */
     public function down()
     {
-        DB::statement('ALTER TABLE `users` MODIFY `name` VARCHAR(255) NOT NULL');
+        // DB::statement('ALTER TABLE `users` MODIFY `name` VARCHAR(255) NOT NULL');
 
         // Schema::table('users', function (Blueprint $table) {
         //     $table->string('name')->change();

@@ -5,13 +5,13 @@ namespace tests\App\Jobs;
 use App\GitHubMarkdownParser;
 use App\Jobs\NotifyUserOfNewGistComment;
 use App\NotifiedComment;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
 use TestCase;
 
 class NotifyUserOfNewGistCommentTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     protected $mailSendData;
 

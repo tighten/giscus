@@ -13,9 +13,9 @@ class ShiftFailedJobsTable extends Migration
      */
     public function up()
     {
-        Schema::table('failed_jobs', function (Blueprint $table) {
-            $table->longText('exception');
-        });
+        // Schema::table('failed_jobs', function (Blueprint $table) {
+            // $table->longText('exception');
+        // });
     }
 
     /**
@@ -25,8 +25,8 @@ class ShiftFailedJobsTable extends Migration
      */
     public function down()
     {
-        Schema::table('failed_jobs', function (Blueprint $table) {
-            $table->dropColumn('exception');
-        });
+        // Schema::table('failed_jobs', function (Blueprint $table) {
+            // $table->dropColumn('exception');
+        // });
     }
 }
