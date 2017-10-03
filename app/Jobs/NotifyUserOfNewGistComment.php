@@ -48,7 +48,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
         $parser = app('App\GitHubMarkdownParser', [$user]);
 
         Mail::send(
-            'emails.new-comment',
+            $this->isCommentNew() ? 'emails.new-comment' : 'emails.edit-comment',
             [
                 'comment' => $comment,
                 'gist' => $gist,
@@ -79,5 +79,11 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
         return NotifiedComment::where('github_id', $this->comment['id'])
             ->where('github_updated_at', $this->comment['updated_at'])
             ->count() > 0;
+    }
+
+    private function isCommentNew()
+    {
+        return NotifiedComment::where('github_id', $this->comment['id'])
+            ->count() == 0;
     }
 }
