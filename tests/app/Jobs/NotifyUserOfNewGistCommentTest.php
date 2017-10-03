@@ -1,10 +1,13 @@
 <?php
 
+namespace tests\App\Jobs;
+
 use App\GitHubMarkdownParser;
 use App\Jobs\NotifyUserOfNewGistComment;
 use App\NotifiedComment;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Mail;
+use TestCase;
 
 class NotifyUserOfNewGistCommentTest extends TestCase
 {
@@ -33,7 +36,7 @@ class NotifyUserOfNewGistCommentTest extends TestCase
     /**
      * @test
      */
-    public function it_sends_new_comment_email_when_new_comment_has_been_added()
+    public function itSendsNewCommentEmailWhenNewCommentHasBeenAdded()
     {
         $comment = [
             'id' => 2,
@@ -50,7 +53,7 @@ class NotifyUserOfNewGistCommentTest extends TestCase
     /**
      * @test
      */
-    public function it_sends_edit_comment_email_when_a_comment_has_been_edited()
+    public function itSendsEditCommentEmailWhenACommentHasBeenEdited()
     {
         $comment = [
             'id' => 1,
