@@ -1,22 +1,91 @@
 $font-size-base: 20px;
+$font-family-base: maison-neue, Roboto, sans-seif;
+$body-bg: #F5F6F7;
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 body {
-    padding-bottom: 4rem;
+    color: #50636C;
+    line-height: 30px;
+    font-weight: 300;
+}
+
+p {
+  margin-bottom: 60px;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
-.page-title {
-    clear: both;
+header {
+    background: #fff;
+}
+
+.ribbon {
+    background: linear-gradient(-90deg, #D7516A 0%, #479CC3 100%);
+    height: 12px;
+}
+
+.navbar-head {
+    &.navbar {
+        margin-bottom: 0;
+    }
+
+    .navbar-brand {
+        height: auto;
+        margin: 50px 0;
+        padding: 0;
+    }
+
+    .navbar-buttons {
+        text-align: right;
+    }
+    .navbar-buttons .btn {
+        margin: 50px 0;
+    }
+}
+
+.main-content {
+    padding: 4rem 0;
+}
+
+.welcome-heading {
+    margin-bottom: 60px;
+    font-size: 36px;
+    color: #1C313B;
+    line-height: 44px;
+    font-weight: 400;
+}
+
+.sponsors-label {
+    display: inline-block;
+    font-weight: 700;
+    font-size: $font-size-small;
+    text-transform: uppercase;
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 2px;
+      background: #50636C;
+      position: absolute;
+      bottom: 8px;
+      right: -55px;
+    }
+}
+
+.sponsor {
+    margin: 20px 60px 20px 0;
+    display: inline-block;
+    img {
+        max-width: 25rem
+    }
 }
 
 .giscus-logo {
     clear: both;
-    margin: 4rem 0 3rem;
     max-width: 40rem;
 
     @media only screen and (max-width: 600px) {
@@ -24,23 +93,15 @@ img {
     }
 }
 
-.pitch {
-    font-size: 1.3em;
-    font-weight: bold;
-    line-height: 1.1;
+.btn {
+  border: 2px solid #CACED1;
+  border-radius: 8px;
+  padding: 10px 30px;
+  font-size: 20px;
 
-    @media only screen and (min-width: 600px) {
-        font-size: 1.5em;
-    }
-}
-
-.pricing {
-    font-size: 1.25em;
-    margin: 1em 0 1.5em;
-
-    strong {
-        font-size: 2em;
-    }
+  .fa {
+    font-size: 25px;
+  }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -48,16 +109,4 @@ img {
         padding-left: 1.5em;
         padding-right: 1.5em;
     }
-}
-
-.github-sign-up-button {
-}
-
-.meta-button {
-    margin-top: 1rem;
-}
-
-.footer {
-    font-size: 0.75em;
-    margin-top: 5em;
 }

@@ -3,3 +3,5 @@
 Homestead.yaml
 .env
 .env.test
+_ide_helper.php
+.phpstorm.meta.php
