@@ -12,8 +12,8 @@
 
     </head>
     <body>
-        <header>
-            <div class="ribbon">&nbsp;</div>
+        <header class="header">
+            <div class="ribbon">&nbsp</div>
 
             <div class="container">
                 <nav class="navbar navbar-head">
