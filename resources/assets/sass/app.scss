@@ -6,8 +6,8 @@ $body-bg: #F5F6F7;
 
 body {
     color: #50636C;
-    line-height: 30px;
     font-weight: 300;
+    line-height: 30px;
 }
 
 p {
@@ -51,34 +51,34 @@ header {
 }
 
 .welcome-heading {
-    margin-bottom: 60px;
-    font-size: 36px;
     color: #1C313B;
-    line-height: 44px;
+    font-size: 36px;
     font-weight: 400;
+    line-height: 44px;
+    margin-bottom: 60px;
 }
 
 .sponsors-label {
     display: inline-block;
-    font-weight: 700;
     font-size: $font-size-small;
-    text-transform: uppercase;
+    font-weight: 700;
     position: relative;
+    text-transform: uppercase;
     &:after {
+      background: #50636C;
+      bottom: 8px;
       content: '';
       display: block;
-      width: 50px;
       height: 2px;
-      background: #50636C;
       position: absolute;
-      bottom: 8px;
       right: -55px;
+      width: 50px;
     }
 }
 
 .sponsor {
-    margin: 20px 60px 20px 0;
     display: inline-block;
+    margin: 20px 60px 20px 0;
     img {
         max-width: 25rem
     }
@@ -96,8 +96,8 @@ header {
 .btn {
   border: 2px solid #CACED1;
   border-radius: 8px;
-  padding: 10px 30px;
   font-size: 20px;
+  padding: 10px 30px;
 
   .fa {
     font-size: 25px;
