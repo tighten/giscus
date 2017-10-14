@@ -7671,25 +7671,29 @@ button.close {
 
 body {
   color: #50636C;
-  line-height: 30px;
   font-weight: 300;
+  line-height: 1.5;
 }
 
 p {
-  margin-bottom: 60px;
+  margin-bottom: 3em;
 }
 
 img {
   max-width: 100%;
 }
 
-header {
+.header, .footer {
   background: #fff;
+}
+
+.footer {
+  padding: 1em 0;
 }
 
 .ribbon {
   background: linear-gradient(-90deg, #D7516A 0%, #479CC3 100%);
-  height: 12px;
+  height: .6em;
 }
 
 .navbar-head.navbar {
@@ -7698,7 +7702,7 @@ header {
 
 .navbar-head .navbar-brand {
   height: auto;
-  margin: 50px 0;
+  margin: 2.5em 0;
   padding: 0;
 }
 
@@ -7707,56 +7711,52 @@ header {
 }
 
 .navbar-head .navbar-buttons .btn {
-  margin: 50px 0;
+  margin: 2.5em 0;
 }
 
 .main-content {
-  padding: 4rem 0;
+  padding: 2em 0;
 }
 
 .welcome-heading {
-  margin-bottom: 60px;
-  font-size: 36px;
   color: #1C313B;
-  line-height: 44px;
+  font-size: 1.8em;
   font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 2em;
 }
 
 .sponsors-label {
   display: inline-block;
-  font-weight: 700;
   font-size: 17px;
-  text-transform: uppercase;
+  font-weight: 700;
   position: relative;
+  text-transform: uppercase;
 }
 
 .sponsors-label:after {
+  background: #50636C;
+  bottom: .5em;
   content: '';
   display: block;
-  width: 50px;
-  height: 2px;
-  background: #50636C;
+  height: .1em;
   position: absolute;
-  bottom: 8px;
-  right: -55px;
+  right: -2.75em;
+  width: 2.5em;
 }
 
 .sponsor {
-  margin: 20px 60px 20px 0;
   display: inline-block;
+  margin: 1em 3em 1em 0;
 }
 
 .sponsor img {
-  max-width: 25rem;
-}
-
-.page-title {
-  clear: both;
+  max-width: 12em;
 }
 
 .giscus-logo {
   clear: both;
-  max-width: 40rem;
+  max-width: 7.5em;
 }
 
 @media only screen and (max-width: 600px) {
@@ -7768,12 +7768,12 @@ header {
 .btn {
   border: 2px solid #CACED1;
   border-radius: 8px;
-  padding: 10px 30px;
-  font-size: 20px;
+  font-size: 1em;
+  padding: .5em 1.5em;
 }
 
 .btn .fa {
-  font-size: 25px;
+  font-size: 1.25em;
 }
 
 @media only screen and (min-width: 1000px) {

@@ -32,11 +32,22 @@
             </div>
 
         </header>
-        <div class="container">
+
+        <main class="container">
             <div class="main-content">
                 @yield('content')
             </div>
-        </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row col-md-8 col-md-push-2 text-center small">
+                    Giscus' source is on GitHub: <a href="https://github.com/tightenco/giscus">tightenco/giscus</a>.<br>
+                    By <a href="http://mattstauffer.co/">Matt Stauffer</a>, for a <a href="https://speakerdeck.com/mattstauffer/leveraging-laravel-launching-side-projects-quickly-with-laravel">talk at Laracon 2015</a>, powered by <a href="http://www.laravel.com/">Laravel</a>.<br>
+                    Logo by <a href="https://twitter.com/Caneco">Vitor Caneco</a>, with a picture of a <a href="https://en.wikipedia.org/wiki/Discus_(fish)">Discus</a> fish
+                </div>
+            </div>
+        </footer>
 
         @yield('footerScripts')
 
