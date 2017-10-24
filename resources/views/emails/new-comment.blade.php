@@ -23,4 +23,6 @@
     </tr>
 </table>
 
-<p>To stop receiving these notifications, <a href="https://giscus.co/">log in</a> and <a href="https://giscus.co/user/confirm-cancel">cancel your Giscus account</a>.</p>
+@if($unsubscribeLink)
+<p>Want to stop receiving these notifications? <a href="{{ $unsubscribeLink }}">Click to unsubscribe</a>.</p>
+@endif
