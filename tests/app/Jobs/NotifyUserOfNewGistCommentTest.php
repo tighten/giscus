@@ -2,12 +2,13 @@
 
 namespace tests\App\Jobs;
 
-use App\GitHubMarkdownParser;
-use App\Jobs\NotifyUserOfNewGistComment;
-use App\NotifiedComment;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Mail;
+use App\User;
 use TestCase;
+use App\NotifiedComment;
+use App\GitHubMarkdownParser;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\NotifyUserOfNewGistComment;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class NotifyUserOfNewGistCommentTest extends TestCase
 {
@@ -65,5 +66,18 @@ class NotifyUserOfNewGistCommentTest extends TestCase
         $job->handle();
 
         $this->assertEquals('emails.edit-comment', $this->mailSendData[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function itGeneratesUnsubscribeUrl()
+    {
+        $user = new User([
+            'github_id' => 987654,
+            'token' => 'ABC123',
+        ]);
+
+        $this->assertEquals('https://giscus.co/unsubscribe?id=987654&hash=2e8f94ecbd8dba1da15c888b2ef0dbd3', $user->getUnsubscribeUrl());
     }
 }
