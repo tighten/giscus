@@ -23,6 +23,5 @@
     </tr>
 </table>
 
-@if($unsubscribeLink)
-<p>Want to stop receiving these notifications? <a href="{{ $unsubscribeLink }}">Click to unsubscribe</a>.</p>
-@endif
+<p>Want to stop receiving these notifications? <a href="{{ $user->getUnsubscribeUrl() }}">Click to unsubscribe</a>.</p>
+

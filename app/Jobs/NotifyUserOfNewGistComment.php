@@ -2,13 +2,13 @@
 
 namespace App\Jobs;
 
-use Carbon\Carbon;
 use App\NotifiedComment;
+use Carbon\Carbon;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 {
@@ -20,9 +20,9 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
     public function __construct($user, $comment, $gist)
     {
-        $this->user = $user;
+        $this->user    = $user;
         $this->comment = $comment;
-        $this->gist = $gist;
+        $this->gist    = $gist;
     }
 
     public function handle()
@@ -53,7 +53,6 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
                 'comment' => $comment,
                 'gist' => $gist,
                 'user' => $user,
-                'unsubscribeLink' => $this->getUnsubscribeUrl($user),
                 'body' => $parser->parse($comment['body']),
             ],
             function ($message) use ($user) {
@@ -86,12 +85,5 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
     {
         return NotifiedComment::where('github_id', $this->comment['id'])
             ->count() == 0;
-    }
-
-    public function getUnsubscribeUrl($user)
-    {
-        if ($user) {
-            return $user->getUnsubscribeHash();
-        }
     }
 }

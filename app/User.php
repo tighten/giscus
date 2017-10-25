@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -15,12 +15,12 @@ class User extends Authenticatable
 
     public function getVerifyHash()
     {
-        return md5($this->github_id . $this->token);
+        return hash('sha256', $this->github_id . $this->token);
     }
 
     public function getUnsubscribeUrl()
     {
-        return 'https://giscus.co/unsubscribe?' . http_build_query([
+        return route('unsubscribe', [
             'id' => $this->github_id,
             'hash' => $this->getVerifyHash(),
         ]);
