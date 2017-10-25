@@ -20,9 +20,9 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
     public function __construct($user, $comment, $gist)
     {
-        $this->user    = $user;
+        $this->user = $user;
         $this->comment = $comment;
-        $this->gist    = $gist;
+        $this->gist = $gist;
     }
 
     public function handle()

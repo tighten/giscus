@@ -23,8 +23,8 @@ class NotifyUserOfNewGistCommentTest extends TestCase
         $gitHubMarkdownParserMock = $this->createMock(GitHubMarkdownParser::class);
         $this->app->instance(GitHubMarkdownParser::class, $gitHubMarkdownParserMock);
 
-        $notifiedComment                    = new NotifiedComment();
-        $notifiedComment->github_id         = 1;
+        $notifiedComment = new NotifiedComment();
+        $notifiedComment->github_id = 1;
         $notifiedComment->github_updated_at = '2017-10-03 01:02:03';
         $notifiedComment->save();
 
