@@ -6,8 +6,7 @@ $senderMessage = "";
 if (isset($_POST['cusername']))
 {
 
-
-    // Gather the posted form variables into local PHP variables
+	// Gather the posted form variables into local PHP variables
     $senderName = $_POST['cusername'];
     $senderEmail = $_POST['cemail'];
     $senderMessage = $_POST['msg'];
@@ -15,8 +14,7 @@ if (isset($_POST['cusername']))
     if (!$senderName || !$senderEmail ) {
 
          $formMessage = "The form is incomplete, please fill in all fields.";
-
-    } else { // Here is the section in which the email actually gets sent
+} else { // Here is the section in which the email actually gets sent
 
         // Run any filtering here
         $senderName = strip_tags($senderName);
@@ -49,15 +47,7 @@ $message .= "</body></html>";
 ";
 	$headers .= "From: no-reply@optiontradepit.com\\r\
 ";
-	
-
-	
-
 	mail( $to, $subject, $message, $headers );
-
-
-
-
 
 
         $formMessage = "Thanks, your message has been sent.";
@@ -65,6 +55,5 @@ $message .= "</body></html>";
         $senderEmail = "";
         $senderMessage = "";
     } // close the else condition
-
 } // close if (POST condition
 ?>
