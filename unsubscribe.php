@@ -1,9 +1,10 @@
-<?
-$link = "unsubscribe.php?id=$user['id']&validation_hash=".md5($user['id'].$SECRET_STRING)
-<a href="<?=$link?>">Unsubscribe</a> ?>
+<?php
+ $link = "unsubscribe.php?id=$user['id']&validation_hash=".md5($user['id'].$SECRET_STRING)
+ <a href="<?=$link?>">Unsubscribe</a> ?>
 
 
-<?function unsubscribe() 
+<?php
+     function unsubscribe() 
 {
 
      $expected = md5( $user['id'] . $SECRET_STRING );
