@@ -1,8 +1,9 @@
 <?
 $link = "unsubscribe.php?id=$user['id']&validation_hash=".md5($user['id'].$SECRET_STRING)
-<a href="<?=$link?>">Unsubscribe</a>
+<a href="<?=$link?>">Unsubscribe</a> ?>
 
-function unsubscribe() 
+
+<?function unsubscribe() 
 {
 
      $expected = md5( $user['id'] . $SECRET_STRING );
@@ -13,4 +14,5 @@ function unsubscribe()
       }
           sql("UPDATE users SET wants_newsletter = FALSE WHERE id = " . escape($_GET['id']);
 }
-              ?>
+?>
+            
