@@ -31,9 +31,9 @@ class ClearBeanstalkdQueueCommand extends Command
      */
     public function getArguments()
     {
-        return array(
-            array('queue', InputArgument::OPTIONAL, 'The name of the queue to clear.'),
-        );
+        return [
+            ['queue', InputArgument::OPTIONAL, 'The name of the queue to clear.'],
+        ];
     }
 
     /**

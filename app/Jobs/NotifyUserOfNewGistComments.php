@@ -7,14 +7,13 @@ use App\NotifiedComment;
 use Exception;
 use Github\Client as GithubClient;
 use Github\Exception\ExceptionInterface as GithubException;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQueue
+class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
@@ -45,7 +44,7 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
                 get_class($e)
             ));
 
-            $this->release(3600);
+            $this->handleGitHubException($client, $e);
         } catch (Exception $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
@@ -88,5 +87,23 @@ class NotifyUserOfNewGistComments extends Job implements SelfHandling, ShouldQue
             $comment,
             $gist
         ));
+    }
+
+    private function handleGitHubException(Client $client, $e)
+    {
+        // Because I don't have time to debug someone else's broken PR right now.
+        // if ($client->getHttpClient()->getLastResponse()->getStatusCode() === 401) {
+        if ($e->getMessage() == 'Bad credentials') {
+            return $this->handleBrokenGitHubToken();
+        }
+
+        $this->release(3600);
+    }
+
+    private function handleBrokenGitHubToken()
+    {
+        $this->dispatch(new CancelUserForBadCredentials($this->user));
+
+        $this->delete();
     }
 }

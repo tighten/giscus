@@ -1,4 +1,4 @@
-<p>You received a new comment on a Gist, <a href="{{ $gist['html_url'] }}">{{ $gist['description'] != '' ? $gist['description'] : '[No Gist title]' }}</a>.</p>
+<p>A comment has been edited on a Gist, <a href="{{ $gist['html_url'] }}">{{ $gist['description'] != '' ? $gist['description'] : '[No Gist title]' }}</a>.</p>
 
 <table>
     <tr>
@@ -22,5 +22,3 @@
         </td>
     </tr>
 </table>
-
-<p>To stop receiving these notifications, <a href="https://giscus.co/">log in</a> and <a href="https://giscus.co/user/confirm-cancel">cancel your Giscus account</a>.</p>
