@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Jobs\CancelUserForBadCredentials;
 use App\NotifiedComment;
 use Exception;
 use Github\Client;
@@ -12,8 +11,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Queue;
 
 class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
