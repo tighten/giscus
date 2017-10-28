@@ -12,7 +12,7 @@ Looking for the code when it was using Cashier & Stripe? Check the [Archive-Cash
 
 ```bash
 composer install
-npm install
+yarn
 ```
 
 - Copy .env.example to .env:
