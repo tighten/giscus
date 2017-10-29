@@ -1,13 +1,13 @@
 <?php
 
+namespace Tests;
+
 use Github\Client as GitHubClient;
 
 class GitHubClientTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_authenticates_with_github_and_returns_5000_rate_limit_guzzle()
+    /** @test */
+    public function itAuthenticatesWithGithubAndReturns5000RateLimitGuzzle()
     {
         if (! config('services.github.client_id') || ! config('services.github.client_secret')) {
             $this->markTestSkipped("Missing GitHub credentials.");

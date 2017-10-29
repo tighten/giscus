@@ -1,8 +1,9 @@
 <?php
 
+namespace Tests;
+
 use App\GistClient;
 use App\User;
-use Github\Client as GitHubClient;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class GistClientTest extends TestCase
@@ -20,7 +21,7 @@ class GistClientTest extends TestCase
      * Sadly, I don't have the time or energy to look up passing in a flag right now,
      * so right now it's just set in the .env.test file.
      */
-    public function it_pulls_more_than_30_gists_from_testing_users_account()
+    public function itPullsMoreThan30GistsFromTestingUsersAccount()
     {
         $token = env('TESTING_USER_API_TOKEN');
         $user = factory(User::class)->create([

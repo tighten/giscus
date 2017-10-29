@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/cancel', 'AccountController@cancel');
 });
 
-Route::group(['prefix' => 'auth/github'], function() {
+Route::group(['prefix' => 'auth/github'], function () {
     Route::get('/', 'Auth\AuthController@redirectToProvider');
     Route::get('callback', 'Auth\AuthController@handleProviderCallback');
 });
