@@ -13,7 +13,7 @@ class GitHubClientTest extends TestCase
             $this->markTestSkipped("Missing GitHub credentials.");
         }
 
-        $github = App::make(GitHubClient::class);
+        $github = $this->app->make(GitHubClient::class);
         $response = $github->getHttpClient()->get('rate_limit')->json();
         $limit = $response['resources']['core']['limit'];
         $this->assertEquals(5000, $limit);

@@ -1,5 +1,9 @@
 <?php
 
+use App\NotifiedComment;
+use App\User;
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,11 +15,19 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(User::class, function (Faker\Generator $faker) {
     return [
+        'github_id' => $faker->randomNumber(7),
         'name' => $faker->name,
         'email' => $faker->email,
-        'password' => str_random(10),
-        'remember_token' => str_random(10),
+        'avatar' => $faker->imageUrl,
+        'token' => str_random(40),
+    ];
+});
+
+$factory->define(NotifiedComment::class, function (Faker\Generator $faker) {
+    return [
+        'github_id' => factory(User::class)->create()->github_id,
+        'github_updated_at' => Carbon::now(),
     ];
 });
