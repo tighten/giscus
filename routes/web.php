@@ -13,7 +13,4 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('user/confirm-cancel', 'AccountController@confirmCancel');
     Route::get('user/cancel', 'AccountController@cancel');
-
-    Route::get('sign-up', 'SignupController@index');
-    Route::post('sign-up', 'SignupController@stripePostback');
 });
