@@ -21,9 +21,9 @@ class CancelUserForBadCredentials extends Job implements ShouldQueue
 
     public function handle()
     {
-        $this->deleteUser();
-
         $this->sendNotificationEmail();
+    
+        $this->deleteUser();
     }
 
     private function deleteUser()
