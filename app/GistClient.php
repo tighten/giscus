@@ -1,13 +1,15 @@
-<?php namespace App;
+<?php
 
-use Github\Client;
+namespace App;
+
+use Github\Client as GitHubClient;
 use Github\ResultPager;
 
 class GistClient
 {
     private $client;
 
-    public function __construct(Client $client)
+    public function __construct(GitHubClient $client)
     {
         $this->client = $client;
     }
@@ -19,7 +21,7 @@ class GistClient
 
     private function pagedAuthenticatedCall($api, $method, $user, $parameters = [])
     {
-        $this->client->authenticate($user->token, Client::AUTH_HTTP_TOKEN);
+        $this->client->authenticate($user->token, GitHubClient::AUTH_HTTP_TOKEN);
         $api = $this->client->api($api);
 
         $paginator = new ResultPager($this->client);

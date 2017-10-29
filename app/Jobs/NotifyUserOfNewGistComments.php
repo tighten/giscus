@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\GistClient;
 use App\NotifiedComment;
 use Exception;
-use Github\Client as GithubClient;
+use Github\Client as GitHubClient;
 use Github\Exception\ExceptionInterface as GithubException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -24,14 +24,14 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
         $this->user = $user;
     }
 
-    public function handle(GistClient $gistclient, GithubClient $github)
+    public function handle(GistClient $gistClient, GitHubClient $githubClient)
     {
         Log::debug('Notifying user ' . $this->user->id . ' of new comments');
 
         try {
-            foreach ($gistclient->all($this->user) as $gist) {
-                Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id']);
-                foreach ($github->api('gist')->comments()->all($gist['id']) as $comment) {
+            foreach ($gistClient->all($this->user) as $gist) {
+                Log::debug('Checking if user ' . $this->user->id . ' has new comments for gist ' . $gist['id']);
+                foreach ($githubClient->api('gist')->comments()->all($gist['id']) as $comment) {
                     $this->handleComment($comment, $gist, $this->user);
                 }
             }
@@ -44,7 +44,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
                 get_class($e)
             ));
 
-            $this->handleGitHubException($client, $e);
+            $this->handleGitHubException($e);
         } catch (Exception $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
@@ -89,10 +89,8 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
         ));
     }
 
-    private function handleGitHubException(Client $client, $e)
+    private function handleGitHubException($e)
     {
-        // Because I don't have time to debug someone else's broken PR right now.
-        // if ($client->getHttpClient()->getLastResponse()->getStatusCode() === 401) {
         if ($e->getMessage() == 'Bad credentials') {
             return $this->handleBrokenGitHubToken();
         }

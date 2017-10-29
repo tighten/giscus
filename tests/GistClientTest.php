@@ -26,7 +26,7 @@ class GistClientTest extends TestCase
         $user = factory(User::class)->create([
             'token' => $token
         ]);
-        $client = App::make(GistClient::class);
+        $client = $this->app->make(GistClient::class);
         $this->assertGreaterThan(30, count($client->all($user)));
     }
 }

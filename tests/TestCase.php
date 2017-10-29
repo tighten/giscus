@@ -34,7 +34,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         parent::checkRequirements();
 
         if (file_exists(dirname(__DIR__) . '/.env.test')) {
-            Dotenv::load(dirname(__DIR__), '.env.test');
+            (new Dotenv(dirname(__DIR__), '.env.test'))->load();
         }
 
         collect($this->getAnnotations())->each(function ($location) {
