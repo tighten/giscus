@@ -18,7 +18,7 @@ yarn
 - Copy .env.example to .env:
 
 ```bash
-cp .env.example.env
+cp .env.example .env
 ```
 
 - Generate application key:
