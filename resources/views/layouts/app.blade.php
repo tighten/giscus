@@ -17,7 +17,7 @@
 
             <div class="container">
                 <nav class="navbar navbar-head">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <img src="/giscus-logo.svg" class="giscus-logo" alt="Giscus">
                     </a>
                     <div class="navbar-buttons">

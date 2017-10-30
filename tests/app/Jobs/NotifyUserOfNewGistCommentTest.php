@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\App\Jobs;
+namespace Tests\App\Jobs;
 
 use App\GitHubMarkdownParser;
 use App\Jobs\NotifyUserOfNewGistComment;
 use App\NotifiedComment;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
-use TestCase;
+use Tests\TestCase;
 
 class NotifyUserOfNewGistCommentTest extends TestCase
 {

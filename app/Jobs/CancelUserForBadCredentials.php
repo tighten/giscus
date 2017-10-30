@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -22,9 +21,9 @@ class CancelUserForBadCredentials extends Job implements ShouldQueue
 
     public function handle()
     {
-        $this->deleteUser();
-
         $this->sendNotificationEmail();
+    
+        $this->deleteUser();
     }
 
     private function deleteUser()

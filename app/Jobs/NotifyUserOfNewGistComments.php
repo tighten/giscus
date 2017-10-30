@@ -2,18 +2,16 @@
 
 namespace App\Jobs;
 
-use App\Jobs\CancelUserForBadCredentials;
+use App\GistClient;
 use App\NotifiedComment;
 use Exception;
-use Github\Client;
-use Github\Exception\ExceptionInterface;
+use Github\Client as GitHubClient;
+use Github\Exception\ExceptionInterface as GithubException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Queue;
 
 class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
@@ -26,18 +24,18 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
         $this->user = $user;
     }
 
-    public function handle(Client $client)
+    public function handle(GistClient $gistClient, GitHubClient $githubClient)
     {
-        $client->authenticate($this->user->token, Client::AUTH_HTTP_TOKEN);
+        Log::debug('Notifying user ' . $this->user->id . ' of new comments');
 
         try {
-            // @todo: Can we get only those updated since date? the API can.. can our client? and does a new comment make it marked as updated?
-            foreach ($client->api('gists')->all() as $gist) {
-                foreach ($client->api('gist')->comments()->all($gist['id']) as $comment) {
+            foreach ($gistClient->all($this->user) as $gist) {
+                Log::debug('Checking if user ' . $this->user->id . ' has new comments for gist ' . $gist['id']);
+                foreach ($githubClient->api('gist')->comments()->all($gist['id']) as $comment) {
                     $this->handleComment($comment, $gist, $this->user);
                 }
             }
-        } catch (ExceptionInterface $e) {
+        } catch (GithubException $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after GitHub exception. Delayed execution for 60 minutes after (%d) attempts. Message: [%s] Exception class: [%s]',
                 $this->user->id,
@@ -46,7 +44,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
                 get_class($e)
             ));
 
-            $this->handleGitHubException($client, $e);
+            $this->handleGitHubException($e);
         } catch (Exception $e) {
             Log::info(sprintf(
                 'Attempting to queue "get comments" for user %s after generic exception. Delayed execution for 2 seconds after (%d) attempts. Message: [%s] Exception class: [%s]',
@@ -62,6 +60,8 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     private function handleComment($comment, $gist, $user)
     {
+        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . '?');
+
         if ($this->commentNeedsNotification($comment, $user)) {
             $this->notifyComment($comment, $gist, $user);
         }
@@ -80,6 +80,8 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     private function notifyComment($comment, $gist, $user)
     {
+        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . ': NEEDS IT');
+
         $this->dispatch(new NotifyUserOfNewGistComment(
             $user,
             $comment,
@@ -87,10 +89,8 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
         ));
     }
 
-    private function handleGitHubException(Client $client, $e)
+    private function handleGitHubException($e)
     {
-        // Because I don't have time to debug someone else's broken PR right now.
-        // if ($client->getHttpClient()->getLastResponse()->getStatusCode() === 401) {
         if ($e->getMessage() == 'Bad credentials') {
             return $this->handleBrokenGitHubToken();
         }

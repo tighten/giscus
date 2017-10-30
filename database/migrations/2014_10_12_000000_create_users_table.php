@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('email');
             $table->string('avatar');
-            $table->string('token'); // Can we store this Github token? I hope?
+            $table->string('token');
 
             //
             $table->rememberToken();
