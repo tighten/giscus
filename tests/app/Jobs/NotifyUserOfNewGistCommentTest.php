@@ -67,18 +67,4 @@ class NotifyUserOfNewGistCommentTest extends TestCase
 
         $this->assertEquals('emails.edit-comment', $this->mailSendData[0]);
     }
-
-    /**
-     * @test
-     */
-    public function itGeneratesUnsubscribeUrl()
-    {
-        $user = new User([
-            'github_id' => 987654,
-            'token' => 'ABC123',
-        ]);
-        $expectedHash = '538240242f92164ed9c1bd413a094a1c0d70d5cca00d10478a077d42798aa2c6';
-
-        $this->assertContains($expectedHash, $user->getUnsubscribeUrl());
-    }
 }
