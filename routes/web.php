@@ -6,6 +6,8 @@ Route::get('no-email', 'Auth\AuthController@noEmail');
 
 Route::get('logout', 'Auth\AuthController@getLogout');
 
+Route::get('unsubscribe', 'UnsubscribeController@index')->name('unsubscribe');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', 'AccountController@index');
     

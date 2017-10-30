@@ -53,7 +53,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
                 'comment' => $comment,
                 'gist' => $gist,
                 'user' => $user,
-                'body' => $parser->parse($comment['body'])
+                'body' => $parser->parse($comment['body']),
             ],
             function ($message) use ($user) {
                 $message

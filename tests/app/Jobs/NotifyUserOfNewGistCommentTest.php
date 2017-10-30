@@ -5,6 +5,7 @@ namespace Tests\App\Jobs;
 use App\GitHubMarkdownParser;
 use App\Jobs\NotifyUserOfNewGistComment;
 use App\NotifiedComment;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;

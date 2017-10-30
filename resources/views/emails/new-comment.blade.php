@@ -23,4 +23,5 @@
     </tr>
 </table>
 
-<p>To stop receiving these notifications, <a href="https://giscus.co/">log in</a> and <a href="https://giscus.co/user/confirm-cancel">cancel your Giscus account</a>.</p>
+<p>Want to stop receiving these notifications? <a href="{{ $user->getUnsubscribeUrl() }}">Click to unsubscribe</a>.</p>
+
