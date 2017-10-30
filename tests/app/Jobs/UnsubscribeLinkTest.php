@@ -16,13 +16,12 @@ class UnsubscribeLinkTest extends TestCase
     {
         parent::setUp();
 
-        // Add a sample user
         User::create([
             'github_id' => 987654,
             'token' => 'ABC123',
             'email' => 'foo@example.com',
             'avatar' => 'bar.jpg',
-        ])->save();
+        ]);
     }
 
     /**
@@ -47,15 +46,12 @@ class UnsubscribeLinkTest extends TestCase
     {
         $user = User::where('github_id', 987654)->first();
 
-        // Generate unsubscribe URL
         $url = $user->getUnsubscribeUrl();
 
-        // Follow the URL and click "Yes"
         $this->visit($url)
             ->seePageIs('/user/confirm-cancel')
             ->click('Yes');
 
-        // Check that the user no longer exists
         $this->assertNull(User::where('github_id', 987654)->first());
     }
 }
