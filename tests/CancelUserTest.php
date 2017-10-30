@@ -5,7 +5,7 @@ namespace Tests;
 use App\Jobs\NotifyUserOfNewGistComments;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class CancelUserTest extends TestCase
 {

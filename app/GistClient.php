@@ -25,11 +25,8 @@ class GistClient
         $api = $this->client->api($api);
 
         $paginator = new ResultPager($this->client);
-        $parameters = array_merge(['github'], $parameters); // wut?
-        $result = $paginator->fetchAll($api, $method, $parameters);
+        $parameters = array_merge(['github'], $parameters);
 
-        // @todo: Can we un-authenticate now?
-
-        return $result;
+        return $paginator->fetchAll($api, $method, $parameters);
     }
 }

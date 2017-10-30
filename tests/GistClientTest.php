@@ -23,7 +23,7 @@ class GistClientTest extends TestCase
      */
     public function itPullsMoreThan30GistsFromTestingUsersAccount()
     {
-        $token = env('TESTING_USER_API_TOKEN');
+        $token = env('TESTING_USER_GITHUB_API_TOKEN');
         $user = factory(User::class)->create([
             'token' => $token
         ]);
