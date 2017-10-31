@@ -45,7 +45,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
     private function sendNotificationEmail($comment, $gist, $user)
     {
-        $parser = app('App\GitHubMarkdownParser', [$user]);
+        $parser = app(\App\GitHubMarkdownParser::class, [$user]);
 
         Mail::send(
             $this->isCommentNew() ? 'emails.new-comment' : 'emails.edit-comment',
