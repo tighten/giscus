@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-class HomePageTest extends TestCase
+class HomePageTest extends BrowserKitTestCase
 {
     /** @test */
     public function itDisplaysTheWordGiscusOnTheHomepage()

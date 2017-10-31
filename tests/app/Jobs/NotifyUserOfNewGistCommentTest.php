@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
-class NotifyUserOfNewGistCommentTest extends TestCase
+class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 

@@ -4,7 +4,7 @@ namespace Tests;
 
 use Github\Client as GitHubClient;
 
-class GitHubClientTest extends TestCase
+class GitHubClientTest extends BrowserKitTestCase
 {
     /** @test */
     public function itAuthenticatesWithGithubAndReturns5000RateLimitGuzzle()

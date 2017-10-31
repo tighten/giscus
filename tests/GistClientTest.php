@@ -6,7 +6,7 @@ use App\GistClient;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class GistClientTest extends TestCase
+class GistClientTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
