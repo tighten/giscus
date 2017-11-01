@@ -23,8 +23,8 @@ class GitHubMarkdownParser
      */
     public function authenticateFor($user)
     {
-       $client->authenticate($user->token, Client::AUTH_HTTP_TOKEN);
-       $this->authenticated = true;
+        $client->authenticate($user->token, Client::AUTH_HTTP_TOKEN);
+        $this->authenticated = true;
     }
 
     public function parse($markdown)
