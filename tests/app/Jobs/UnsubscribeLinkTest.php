@@ -5,6 +5,7 @@ namespace tests\App\Jobs;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use TestCase;
+use Tests\BrowserKitTestCase;
 
 class UnsubscribeLinkTest extends BrowserKitTestCase
 {
