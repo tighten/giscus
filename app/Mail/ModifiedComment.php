@@ -16,11 +16,6 @@ class ModifiedComment extends Mailable
     public $body;
     public $user;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($comment, $gist, $body, $user)
     {
         $this->comment = $comment;
@@ -29,11 +24,6 @@ class ModifiedComment extends Mailable
         $this->user = $user;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->view('emails.edit-comment')
