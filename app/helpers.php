@@ -7,7 +7,7 @@ if (! function_exists('arrayfactory')) {
     {
         $faker = app(Faker\Generator::class);
 
-        switch ($name):
+        switch ($name) :
             case 'gist':
                 return [
                     'html_url' => $faker->url,
