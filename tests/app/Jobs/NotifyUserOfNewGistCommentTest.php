@@ -8,9 +8,9 @@ use App\NotifiedComment;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
-use Tests\TestCase;
+use Tests\BrowserKitTestCase;
 
-class NotifyUserOfNewGistCommentTest extends TestCase
+class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
@@ -23,7 +23,7 @@ class NotifyUserOfNewGistCommentTest extends TestCase
         $gitHubMarkdownParserMock = $this->createMock(GitHubMarkdownParser::class);
         $this->app->instance(GitHubMarkdownParser::class, $gitHubMarkdownParserMock);
 
-        $notifiedComment = new NotifiedComment();
+        $notifiedComment = new NotifiedComment;
         $notifiedComment->github_id = 1;
         $notifiedComment->github_updated_at = '2017-10-03 01:02:03';
         $notifiedComment->save();

@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use App\GitHubMarkdownParser;
+use App\Mail\ModifiedComment;
+use App\Mail\NewComment;
 use App\NotifiedComment;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -45,22 +48,14 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
     private function sendNotificationEmail($comment, $gist, $user)
     {
-        $parser = app('App\GitHubMarkdownParser', [$user]);
+        $parser = app()->make(GitHubMarkdownParser::class);
+        $parser->authenticateFor($user);
 
-        Mail::send(
-            $this->isCommentNew() ? 'emails.new-comment' : 'emails.edit-comment',
-            [
-                'comment' => $comment,
-                'gist' => $gist,
-                'user' => $user,
-                'body' => $parser->parse($comment['body']),
-            ],
-            function ($message) use ($user) {
-                $message
-                    ->to($user->email, $user->name)
-                    ->subject('You have a new Gist Comment!');
-            }
-        );
+        $email = $this->isCommentNew() ?
+            new NewComment($comment, $gist, $parser->parse($comment['body']), $user) :
+            new ModifiedComment($comment, $gist, $parser->parse($comment['body']), $user);
+
+        Mail::to($user)->send($email);
     }
 
     private function markCommentAsNotified($comment)

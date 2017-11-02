@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
 
-class CancelUserTest extends TestCase
+class CancelUserTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
     

@@ -22,7 +22,7 @@ class CancelUserForBadCredentials extends Job implements ShouldQueue
     public function handle()
     {
         $this->sendNotificationEmail();
-    
+
         $this->deleteUser();
     }
 
@@ -35,16 +35,6 @@ class CancelUserForBadCredentials extends Job implements ShouldQueue
 
     private function sendNotificationEmail()
     {
-        Mail::send(
-            'emails.broken-github-token',
-            [
-                'user' => $this->user,
-            ],
-            function ($message) {
-                $message
-                    ->to($this->user->email, $this->user->name)
-                    ->subject('We\'ve lost contact with your GitHub account.');
-            }
-        );
+        Mail::to($user)->send(new BrokenGitHubToken($user));
     }
 }

@@ -4,9 +4,9 @@ namespace Tests;
 
 use Dotenv\Dotenv;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-class TestCase extends BaseTestCase
+class BrowserKitTestCase extends BaseTestCase
 {
     /**
      * The base URL to use while testing the application.

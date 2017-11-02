@@ -7766,8 +7766,8 @@ img {
 }
 
 .btn {
-  border: 2px solid #CACED1;
-  border-radius: 8px;
+  border: .1em solid #CACED1;
+  border-radius: .4em;
   font-size: 1em;
   padding: .5em 1.5em;
 }
