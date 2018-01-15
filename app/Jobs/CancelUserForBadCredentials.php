@@ -35,6 +35,6 @@ class CancelUserForBadCredentials extends Job implements ShouldQueue
 
     private function sendNotificationEmail()
     {
-        Mail::to($user)->send(new BrokenGitHubToken($user));
+        Mail::to($this->user)->send(new BrokenGitHubToken($this->user));
     }
 }
