@@ -17,6 +17,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
+    public $tries = 5;
     private $user;
 
     public function __construct($user)
