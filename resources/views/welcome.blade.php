@@ -12,11 +12,11 @@
                 <form method="post" action="/auth/github">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-default">
-                        <i class="fa fa-github"></i> Sign Up With GitHub
+                        <i class="fa fa-github"></i> Sign Up / Log In With GitHub
                     </button>
                     <label class="checkbox-label">
                         <input name="allow-private" type="checkbox" checked>
-                        Allow us to access your private Gists
+                        Allow us to access your private Gists (if signing up)
                     </label>
                 </form>
             </p>
