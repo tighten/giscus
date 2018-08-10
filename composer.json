@@ -14,7 +14,7 @@
         "knplabs/github-api": "~1.4",
         "pda/pheanstalk": "~3.0",
         "doctrine/dbal": "^2.5",
-        "bugsnag/bugsnag-laravel": "1.*",
+        "bugsnag/bugsnag-laravel": "^2.0",
         "laravel/tinker": "^1.0",
         "fideloper/proxy": "~3.3"
     },

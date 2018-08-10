@@ -154,13 +154,13 @@ return [
         /*
          * Application Service Providers...
          */
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         App\Providers\GitHubServiceProvider::class,
-        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
     ],
 
     /*
@@ -210,7 +210,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Bugsnag'   => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
+        'Bugsnag'   => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
     ],
 
 ];
