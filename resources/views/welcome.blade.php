@@ -9,9 +9,16 @@
             <p>Receive up-to-the-hour notifications on comments on your Gists. No work on your part, free because
                 Tighten and DigitalOcean love you, cancel any time.</p>
             <p>
-                <a href="/auth/github" class="btn btn-default">
-                    <i class="fa fa-github"></i> Sign Up With GitHub
-                </a>
+                <form method="post" action="/auth/github">
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-github"></i> Sign Up With GitHub
+                    </button>
+                    <label class="checkbox-label">
+                        <input name="allow-private" type="checkbox" checked>
+                        Allow us to access your private Gists
+                    </label>
+                </form>
             </p>
             <div>
                 <h4 class="sponsors-label">Sponsored by</h4>
