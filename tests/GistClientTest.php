@@ -6,13 +6,25 @@ use App\GistClient;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
+/**
+ * @coversNothing
+ */
 class GistClientTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create([
+            'token' => env('TESTING_USER_GITHUB_API_TOKEN'),
+        ]);
+    }
+
     /**
-     * @test
      * @requires ApiTest
+     * @skip
      *
      * Note: This test is not particularly useful unless you have a token for a user
      * who has more than 30 gists, which is why it requires you to pass in a flag
@@ -21,13 +33,17 @@ class GistClientTest extends BrowserKitTestCase
      * Sadly, I don't have the time or energy to look up passing in a flag right now,
      * so right now it's just set in the .env.test file.
      */
-    public function itPullsMoreThan30GistsFromTestingUsersAccount()
+    public function testItPullsMoreThan30GistsFromTestingUsersAccount()
     {
-        $token = env('TESTING_USER_GITHUB_API_TOKEN');
-        $user = factory(User::class)->create([
-            'token' => $token
-        ]);
+        $this->markTestSkipped('Needs revisiting.');
+
         $client = $this->app->make(GistClient::class);
-        $this->assertGreaterThan(30, count($client->all($user)));
+        $this->assertGreaterThan(30, count($client->all($this->user)));
+    }
+
+    public function testItPullsAvailableGiststs()
+    {
+        $client = $this->app->make(GistClient::class);
+        $this->assertNotEmpty($client->all($this->user));
     }
 }

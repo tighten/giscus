@@ -4,20 +4,22 @@ namespace tests\App\Jobs;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use TestCase;
 use Tests\BrowserKitTestCase;
 
+/**
+ * @coversNothing
+ */
 class UnsubscribeLinkTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
     protected $user;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
-        User::create([
+        factory(User::class)->create([
             'github_id' => 987654,
             'token' => 'ABC123',
             'email' => 'foo@example.com',
@@ -25,10 +27,7 @@ class UnsubscribeLinkTest extends BrowserKitTestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function itGeneratesUnsubscribeUrl()
+    public function testItGeneratesUnsubscribeUrl()
     {
         $user = User::where('github_id', 987654)->first();
 
@@ -40,10 +39,7 @@ class UnsubscribeLinkTest extends BrowserKitTestCase
         $this->assertSame($expectedUrl, $user->getUnsubscribeUrl());
     }
 
-    /**
-     * @test
-     */
-    public function itCanUnsubscribeSomeone()
+    public function testItCanUnsubscribeSomeone()
     {
         $user = User::where('github_id', 987654)->first();
 

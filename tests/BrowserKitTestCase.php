@@ -6,6 +6,9 @@ use Dotenv\Dotenv;
 use Illuminate\Contracts\Console\Kernel;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
+/**
+ * @coversNothing
+ */
 class BrowserKitTestCase extends BaseTestCase
 {
     /**
@@ -13,7 +16,7 @@ class BrowserKitTestCase extends BaseTestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://localhost';
+    protected $baseUrl = 'http://giscus.test';
 
     /**
      * Creates the application.
@@ -26,7 +29,7 @@ class BrowserKitTestCase extends BaseTestCase
             (new Dotenv(dirname(__DIR__), '.env.test'))->load();
         }
 
-        $app = require __DIR__.'/../bootstrap/app.php';
+        $app = require __DIR__ . '/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 
@@ -46,7 +49,7 @@ class BrowserKitTestCase extends BaseTestCase
                 return;
             }
 
-            if (in_array('ApiTest', $location['requires'])) {
+            if (in_array('ApiTest', $location['requires'], true)) {
                 if (! env('TEST_API')) {
                     $this->markTestSkipped('Skipping API tests');
                 }
