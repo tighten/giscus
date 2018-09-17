@@ -6,9 +6,6 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\BrowserKitTestCase;
 
-/**
- * @coversNothing
- */
 class UnsubscribeLinkTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;

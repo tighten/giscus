@@ -6,9 +6,6 @@ use App\GistClient;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-/**
- * @coversNothing
- */
 class GistClientTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
@@ -24,7 +21,6 @@ class GistClientTest extends BrowserKitTestCase
 
     /**
      * @requires ApiTest
-     * @skip
      *
      * Note: This test is not particularly useful unless you have a token for a user
      * who has more than 30 gists, which is why it requires you to pass in a flag
@@ -41,7 +37,7 @@ class GistClientTest extends BrowserKitTestCase
         $this->assertGreaterThan(30, count($client->all($this->user)));
     }
 
-    public function testItPullsAvailableGiststs()
+    public function testItPullsAvailableGists()
     {
         $client = $this->app->make(GistClient::class);
         $this->assertNotEmpty($client->all($this->user));

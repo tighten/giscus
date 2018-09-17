@@ -12,9 +12,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
 use Tests\BrowserKitTestCase;
 
-/**
- * @coversNothing
- */
 class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
