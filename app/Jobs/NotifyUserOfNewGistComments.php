@@ -27,11 +27,15 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     public function handle(GistClient $gistClient, GitHubClient $githubClient)
     {
-        Log::debug('Notifying user ' . $this->user->id . ' of new comments');
+        Log::debug('Notify user? user [' . $this->user->id . ']');
+
+        // @todo: Do a single lookup of all notified comments for this user, so
+        // we can be hitting the DB just once (unless we're hitting it to write
+        // a new "notified comment" entry), instead of once *per comment*
 
         try {
             foreach ($gistClient->all($this->user) as $gist) {
-                Log::debug('Checking if user ' . $this->user->id . ' has new comments for gist ' . $gist['id']);
+                Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . ']');
                 foreach ($githubClient->api('gist')->comments()->all($gist['id']) as $comment) {
                     $this->handleComment($comment, $gist, $this->user);
                 }
@@ -61,7 +65,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     private function handleComment($comment, $gist, $user)
     {
-        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . '?');
+        Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . '] comment [' . $comment['id'] . ']');
 
         if ($this->commentNeedsNotification($comment, $user)) {
             $this->notifyComment($comment, $gist, $user);
@@ -81,7 +85,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     private function notifyComment($comment, $gist, $user)
     {
-        Log::debug('Notifying user ' . $this->user->id . ' of new comments for gist ' . $gist['id'] . ', comment ' . $comment['id'] . ': NEEDS IT');
+        Log::debug('Queue notification! user [' . $this->user->id . '] gist [' . $gist['id'] . '] comment [' . $comment['id'] . ']');
 
         $this->dispatch(new NotifyUserOfNewGistComment(
             $user,
@@ -93,6 +97,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
     private function handleGitHubException($e)
     {
         if ($e->getMessage() == 'Bad credentials') {
+            Log::error('Bad credentials; cancelling. For user ' . $this->user->id);
             return $this->handleBrokenGitHubToken();
         }
 
