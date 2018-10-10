@@ -1372,7 +1372,7 @@ th {
 
 html {
   font-size: 10px;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -3084,50 +3084,50 @@ input[type="search"] {
   input[type="month"].form-control {
     line-height: 42px;
   }
-  input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control,
-  .input-group-sm > input[type="date"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="date"].btn,
+  input[type="date"].input-sm, .input-group-sm > input.form-control[type="date"],
+  .input-group-sm > input.input-group-addon[type="date"],
+  .input-group-sm > .input-group-btn > input.btn[type="date"],
   .input-group-sm input[type="date"],
   input[type="time"].input-sm,
-  .input-group-sm > input[type="time"].form-control,
-  .input-group-sm > input[type="time"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="time"].btn,
+  .input-group-sm > input.form-control[type="time"],
+  .input-group-sm > input.input-group-addon[type="time"],
+  .input-group-sm > .input-group-btn > input.btn[type="time"],
   .input-group-sm
   input[type="time"],
   input[type="datetime-local"].input-sm,
-  .input-group-sm > input[type="datetime-local"].form-control,
-  .input-group-sm > input[type="datetime-local"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
+  .input-group-sm > input.form-control[type="datetime-local"],
+  .input-group-sm > input.input-group-addon[type="datetime-local"],
+  .input-group-sm > .input-group-btn > input.btn[type="datetime-local"],
   .input-group-sm
   input[type="datetime-local"],
   input[type="month"].input-sm,
-  .input-group-sm > input[type="month"].form-control,
-  .input-group-sm > input[type="month"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="month"].btn,
+  .input-group-sm > input.form-control[type="month"],
+  .input-group-sm > input.input-group-addon[type="month"],
+  .input-group-sm > .input-group-btn > input.btn[type="month"],
   .input-group-sm
   input[type="month"] {
     line-height: 37px;
   }
-  input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control,
-  .input-group-lg > input[type="date"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="date"].btn,
+  input[type="date"].input-lg, .input-group-lg > input.form-control[type="date"],
+  .input-group-lg > input.input-group-addon[type="date"],
+  .input-group-lg > .input-group-btn > input.btn[type="date"],
   .input-group-lg input[type="date"],
   input[type="time"].input-lg,
-  .input-group-lg > input[type="time"].form-control,
-  .input-group-lg > input[type="time"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="time"].btn,
+  .input-group-lg > input.form-control[type="time"],
+  .input-group-lg > input.input-group-addon[type="time"],
+  .input-group-lg > .input-group-btn > input.btn[type="time"],
   .input-group-lg
   input[type="time"],
   input[type="datetime-local"].input-lg,
-  .input-group-lg > input[type="datetime-local"].form-control,
-  .input-group-lg > input[type="datetime-local"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
+  .input-group-lg > input.form-control[type="datetime-local"],
+  .input-group-lg > input.input-group-addon[type="datetime-local"],
+  .input-group-lg > .input-group-btn > input.btn[type="datetime-local"],
   .input-group-lg
   input[type="datetime-local"],
   input[type="month"].input-lg,
-  .input-group-lg > input[type="month"].form-control,
-  .input-group-lg > input[type="month"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="month"].btn,
+  .input-group-lg > input.form-control[type="month"],
+  .input-group-lg > input.input-group-addon[type="month"],
+  .input-group-lg > .input-group-btn > input.btn[type="month"],
   .input-group-lg
   input[type="month"] {
     line-height: 56px;
@@ -3248,9 +3248,9 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-group-sm > textarea.input-group-addon,
 .input-group-sm > .input-group-btn > textarea.btn,
 select[multiple].input-sm,
-.input-group-sm > select[multiple].form-control,
-.input-group-sm > select[multiple].input-group-addon,
-.input-group-sm > .input-group-btn > select[multiple].btn {
+.input-group-sm > select.form-control[multiple],
+.input-group-sm > select.input-group-addon[multiple],
+.input-group-sm > .input-group-btn > select.btn[multiple] {
   height: auto;
 }
 
@@ -3301,9 +3301,9 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 .input-group-lg > textarea.input-group-addon,
 .input-group-lg > .input-group-btn > textarea.btn,
 select[multiple].input-lg,
-.input-group-lg > select[multiple].form-control,
-.input-group-lg > select[multiple].input-group-addon,
-.input-group-lg > .input-group-btn > select[multiple].btn {
+.input-group-lg > select.form-control[multiple],
+.input-group-lg > select.input-group-addon[multiple],
+.input-group-lg > .input-group-btn > select.btn[multiple] {
   height: auto;
 }
 
@@ -3354,9 +3354,7 @@ select[multiple].input-lg,
   pointer-events: none;
 }
 
-.input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback,
-.input-group-lg > .input-group-addon + .form-control-feedback,
-.input-group-lg > .input-group-btn > .btn + .form-control-feedback,
+.input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback, .input-group-lg > .input-group-addon + .form-control-feedback, .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
 .form-group-lg .form-control + .form-control-feedback {
   width: 56px;
@@ -3364,9 +3362,7 @@ select[multiple].input-lg,
   line-height: 56px;
 }
 
-.input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback,
-.input-group-sm > .input-group-addon + .form-control-feedback,
-.input-group-sm > .input-group-btn > .btn + .form-control-feedback,
+.input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback, .input-group-sm > .input-group-addon + .form-control-feedback, .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
 .form-group-sm .form-control + .form-control-feedback {
   width: 37px;
@@ -3651,20 +3647,20 @@ fieldset[disabled] a.btn {
 
 .btn-default:focus, .btn-default.focus {
   color: #333;
-  background-color: #e6e6e6;
+  background-color: #e6e5e5;
   border-color: #8c8c8c;
 }
 
 .btn-default:hover {
   color: #333;
-  background-color: #e6e6e6;
+  background-color: #e6e5e5;
   border-color: #adadad;
 }
 
 .btn-default:active, .btn-default.active,
 .open > .btn-default.dropdown-toggle {
   color: #333;
-  background-color: #e6e6e6;
+  background-color: #e6e5e5;
   border-color: #adadad;
 }
 
@@ -4716,8 +4712,10 @@ tbody.collapse.in {
 }
 
 .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
-.nav-tabs-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:hover,
-.nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
+.nav-tabs-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs-justified > .active > a:focus,
+.nav-tabs.nav-justified > .active > a:focus {
   border: 1px solid #ddd;
 }
 
@@ -4727,8 +4725,10 @@ tbody.collapse.in {
     border-radius: 4px 4px 0 0;
   }
   .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
-  .nav-tabs-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:hover,
-  .nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
+  .nav-tabs-justified > .active > a:hover,
+  .nav-tabs.nav-justified > .active > a:hover,
+  .nav-tabs-justified > .active > a:focus,
+  .nav-tabs.nav-justified > .active > a:focus {
     border-bottom-color: #F5F6F7;
   }
 }
@@ -5147,7 +5147,7 @@ tbody.collapse.in {
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #5e5d5d;
   background-color: transparent;
 }
 
@@ -5238,7 +5238,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse {
   background-color: #222;
-  border-color: #090909;
+  border-color: #090808;
 }
 
 .navbar-inverse .navbar-brand {
@@ -5265,7 +5265,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
   color: #fff;
-  background-color: #090909;
+  background-color: #090808;
 }
 
 .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
@@ -5291,16 +5291,16 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #090909;
+  background-color: #090808;
   color: #fff;
 }
 
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: #090909;
+    border-color: #090808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #090909;
+    background-color: #090808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #9d9d9d;
@@ -5311,7 +5311,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #fff;
-    background-color: #090909;
+    background-color: #090808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #444;
@@ -5829,15 +5829,6 @@ a.thumbnail.active {
   color: #843534;
 }
 
-@-webkit-keyframes progress-bar-stripes {
-  from {
-    background-position: 40px 0;
-  }
-  to {
-    background-position: 0 0;
-  }
-}
-
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
@@ -5877,7 +5868,6 @@ a.thumbnail.active {
 
 .progress.active .progress-bar,
 .progress-bar.active {
-  -webkit-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
 
@@ -6711,15 +6701,11 @@ button.close {
 }
 
 .modal.fade .modal-dialog {
-  -webkit-transform: translate(0, -25%);
   transform: translate(0, -25%);
-  transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 
 .modal.in .modal-dialog {
-  -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
 
@@ -7151,26 +7137,20 @@ button.close {
 
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
-    transition: -webkit-transform 0.6s ease-in-out;
     transition: transform 0.6s ease-in-out;
-    transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-perspective: 1000px;
     perspective: 1000px;
   }
   .carousel-inner > .item.next, .carousel-inner > .item.active.right {
-    -webkit-transform: translate3d(100%, 0, 0);
     transform: translate3d(100%, 0, 0);
     left: 0;
   }
   .carousel-inner > .item.prev, .carousel-inner > .item.active.left {
-    -webkit-transform: translate3d(-100%, 0, 0);
     transform: translate3d(-100%, 0, 0);
     left: 0;
   }
   .carousel-inner > .item.next.left, .carousel-inner > .item.prev.right, .carousel-inner > .item.active {
-    -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     left: 0;
   }
@@ -7226,7 +7206,7 @@ button.close {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .carousel-control.left {
@@ -7312,7 +7292,7 @@ button.close {
   border-radius: 10px;
   cursor: pointer;
   background-color: #000 \9;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .carousel-indicators .active {
@@ -7670,13 +7650,13 @@ button.close {
 }
 
 body {
-  color: #50636C;
+  color: #50636c;
   font-weight: 300;
   line-height: 1.5;
 }
 
 p {
-  margin-bottom: 3em;
+  margin-bottom: 2em;
 }
 
 img {
@@ -7692,7 +7672,7 @@ img {
 }
 
 .ribbon {
-  background: linear-gradient(-90deg, #D7516A 0%, #479CC3 100%);
+  background: linear-gradient(-90deg, #D7516a 0%, #479cc3 100%);
   height: .6em;
 }
 
@@ -7719,11 +7699,11 @@ img {
 }
 
 .welcome-heading {
-  color: #1C313B;
+  color: #1c313b;
   font-size: 1.8em;
   font-weight: 400;
   line-height: 1.5;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .sponsors-label {
@@ -7735,7 +7715,7 @@ img {
 }
 
 .sponsors-label:after {
-  background: #50636C;
+  background: #50636c;
   bottom: .5em;
   content: '';
   display: block;
@@ -7766,7 +7746,7 @@ img {
 }
 
 .btn {
-  border: .1em solid #CACED1;
+  border: .1em solid #caced1;
   border-radius: .4em;
   font-size: 1em;
   padding: .5em 1.5em;
