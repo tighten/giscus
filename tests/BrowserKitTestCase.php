@@ -36,14 +36,8 @@ class BrowserKitTestCase extends BaseTestCase
         return $app;
     }
 
-    protected function checkRequirements()
+    protected function assertPreConditions()
     {
-        parent::checkRequirements();
-
-        if (file_exists(dirname(__DIR__) . '/.env.test')) {
-            (new Dotenv(dirname(__DIR__), '.env.test'))->load();
-        }
-
         collect($this->getAnnotations())->each(function ($location) {
             if (! isset($location['requires'])) {
                 return;
