@@ -19,6 +19,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     public $tries = 5;
     private $user;
+    protected $notifieds = [];
 
     public function __construct($user)
     {
@@ -29,14 +30,29 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
     {
         Log::debug('Notify user? user [' . $this->user->id . ']');
 
-        // @todo: Do a single lookup of all notified comments for this user, so
-        // we can be hitting the DB just once (unless we're hitting it to write
-        // a new "notified comment" entry), instead of once *per comment*
-
         try {
+            Log::debug('Listing all gist comment IDs for user [' . $this->user->id . ']');
+            $gists = [];
+            $commentIds = [];
+
+            // Ugly structure in order to optimize the DB load and maybe eventually optimize the HTTP calls?
             foreach ($gistClient->all($this->user) as $gist) {
-                Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . ']');
+                $gist['comments'] = [];
+
                 foreach ($githubClient->api('gist')->comments()->all($gist['id']) as $comment) {
+                    // @todo skip this comment if it's older than a day old, I think?
+                    $gist['comments'][] = $comment;
+                    $commentIds[] = $comment['id'];
+                }
+
+                $gists[] = $gist;
+            }
+
+            $this->notifieds = NotifiedComment::whereIn('github_id', $commentIds);
+
+            foreach ($gists as $gist) {
+                Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . ']');
+                foreach ($gist['comments'] as $comment) {
                     $this->handleComment($comment, $gist, $this->user);
                 }
             }
@@ -78,9 +94,15 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
             return false;
         }
 
-        return NotifiedComment::where('github_id', $comment['id'])
-            ->where('github_updated_at', $comment['updated_at'])
-            ->count() == 0;
+        return $this->notifieds->filter(function ($notified) use ($comment) {
+            // @todo double check and probably test these comparisons are working
+            return $notified->github_id == $comment['id']
+                && $notified->github_updated_at == $comment['updated_at'];
+        })->count() == 0;
+
+        // return NotifiedComment::where('github_id', $comment['id'])
+        //     ->where('github_updated_at', $comment['updated_at'])
+        //     ->count() == 0;
     }
 
     private function notifyComment($comment, $gist, $user)
