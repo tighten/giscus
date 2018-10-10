@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Psr\Log\LoggerInterface;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
 
