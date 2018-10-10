@@ -15,11 +15,10 @@ use Illuminate\Support\Facades\Mail;
 
 class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 {
+    use InteractsWithQueue, SerializesModels;
     private $user;
     private $comment;
     private $gist;
-
-    use InteractsWithQueue, SerializesModels;
 
     public function __construct($user, $comment, $gist)
     {
@@ -61,7 +60,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
     private function markCommentAsNotified($comment)
     {
         $eloquentComment = NotifiedComment::firstOrNew([
-            'github_id' => $comment['id']
+            'github_id' => $comment['id'],
         ]);
 
         $eloquentComment->github_updated_at = Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $comment['updated_at']);
@@ -78,7 +77,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
     private function isCommentNew()
     {
-        return NotifiedComment::where('github_id', $this->comment['id'])
-            ->count() == 0;
+        return 0 === NotifiedComment::where('github_id', $this->comment['id'])
+            ->count();
     }
 }

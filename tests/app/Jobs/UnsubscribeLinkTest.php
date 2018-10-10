@@ -4,55 +4,32 @@ namespace tests\App\Jobs;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use TestCase;
 use Tests\BrowserKitTestCase;
 
 class UnsubscribeLinkTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
-    protected $user;
-
-    public function setUp()
+    public function testItGeneratesUnsubscribeUrl()
     {
-        parent::setUp();
-
-        User::create([
-            'github_id' => 987654,
-            'token' => 'ABC123',
-            'email' => 'foo@example.com',
-            'avatar' => 'bar.jpg',
-        ]);
-    }
-
-    /**
-     * @test
-     */
-    public function itGeneratesUnsubscribeUrl()
-    {
-        $user = User::where('github_id', 987654)->first();
+        $user = factory(User::class)->create();
 
         $expectedUrl = route('unsubscribe', [
-            'id' => 987654,
+            'id' => $user->github_id,
             'hash' => $user->getVerifyHash(),
         ]);
 
         $this->assertSame($expectedUrl, $user->getUnsubscribeUrl());
     }
 
-    /**
-     * @test
-     */
-    public function itCanUnsubscribeSomeone()
+    public function testItCanUnsubscribeSomeone()
     {
-        $user = User::where('github_id', 987654)->first();
+        $user = factory(User::class)->create();
 
-        $url = $user->getUnsubscribeUrl();
-
-        $this->visit($url)
+        $this->visit($user->getUnsubscribeUrl())
             ->seePageIs('/user/confirm-cancel')
             ->click('Yes');
 
-        $this->assertNull(User::where('github_id', 987654)->first());
+        $this->assertEmpty(User::all());
     }
 }

@@ -41,7 +41,7 @@ class ClearBeanstalkdQueueCommand extends Command
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $queue = ($this->argument('queue')) ? $this->argument('queue') : Config::get('queue.connections.beanstalkd.queue');
 

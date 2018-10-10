@@ -25,7 +25,6 @@ if (! function_exists('arrayfactory')) {
                         'login' => $faker->userName,
                     ]
                 ];
-
         endswitch;
 
         throw new Exception("Array factory $name not found.");
