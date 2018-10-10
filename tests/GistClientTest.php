@@ -37,6 +37,9 @@ class GistClientTest extends BrowserKitTestCase
         $this->assertGreaterThan(30, count($client->all($this->user)));
     }
 
+    /**
+     * @requires ApiTest
+     */
     public function testItPullsAvailableGists()
     {
         $client = $this->app->make(GistClient::class);

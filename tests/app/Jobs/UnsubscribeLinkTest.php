@@ -10,26 +10,12 @@ class UnsubscribeLinkTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
-    protected $user;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        factory(User::class)->create([
-            'github_id' => 987654,
-            'token' => 'ABC123',
-            'email' => 'foo@example.com',
-            'avatar' => 'bar.jpg',
-        ]);
-    }
-
     public function testItGeneratesUnsubscribeUrl()
     {
-        $user = User::where('github_id', 987654)->first();
+        $user = factory(User::class)->create();
 
         $expectedUrl = route('unsubscribe', [
-            'id' => 987654,
+            'id' => $user->github_id,
             'hash' => $user->getVerifyHash(),
         ]);
 
@@ -38,14 +24,12 @@ class UnsubscribeLinkTest extends BrowserKitTestCase
 
     public function testItCanUnsubscribeSomeone()
     {
-        $user = User::where('github_id', 987654)->first();
+        $user = factory(User::class)->create();
 
-        $url = $user->getUnsubscribeUrl();
-
-        $this->visit($url)
+        $this->visit($user->getUnsubscribeUrl())
             ->seePageIs('/user/confirm-cancel')
             ->click('Yes');
 
-        $this->assertNull(User::where('github_id', 987654)->first());
+        $this->assertEmpty(User::all());
     }
 }
