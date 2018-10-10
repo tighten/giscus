@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
