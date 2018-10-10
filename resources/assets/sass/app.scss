@@ -108,6 +108,18 @@ img {
   }
 }
 
+.checkbox-label {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 400;
+    margin: 0.5em 0 0 0.2em;
+
+    input[type='checkbox'] {
+        margin: 0 0.2em 0.2em 0;
+        vertical-align: middle;
+    }
+}
+
 @media only screen and (min-width: 1000px) {
     .github-sign-up-button, .meta-button {
         padding-left: 1.5em;

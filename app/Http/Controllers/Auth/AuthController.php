@@ -32,8 +32,10 @@ class AuthController extends Controller
      */
     public function redirectToProvider()
     {
+        $scopes = request('allow-private') ? ['gist', 'user:email'] : ['user:email'];
+
         return Socialite::driver('github')
-            ->scopes(['gist', 'user:email'])
+            ->scopes($scopes)
             ->redirect();
     }
 
