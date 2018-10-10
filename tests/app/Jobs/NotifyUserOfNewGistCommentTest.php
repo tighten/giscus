@@ -30,7 +30,8 @@ class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
         $this->app->instance(GitHubMarkdownParser::class, $gitHubMarkdownParserMock);
     }
 
-    public function testItSendsNewCommentEmailWhenNewCommentHasBeenAdded()
+    /** @test */
+    public function it_sends_new_comment_email_when_new_comment_has_been_added()
     {
         $comment = [
             'id' => 2,
@@ -45,7 +46,8 @@ class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
         });
     }
 
-    public function testItSendsEditCommentEmailWhenACommentHasBeenEdited()
+    /** @test */
+    public function it_sends_edit_coment_email_when_a_comment_has_been_edited()
     {
         $this->createNotifiedComment();
 
