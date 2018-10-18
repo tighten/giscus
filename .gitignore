@@ -1,3 +1,6 @@
+/.idea
+/.phpintel
+
 /vendor
 /node_modules
 Homestead.yaml
