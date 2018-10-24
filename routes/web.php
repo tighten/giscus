@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', ['middleware' => 'guest', 'uses' => 'WelcomeController@index']);
+Route::get('/', ['middleware' => 'guest', 'uses' => 'WelcomeController@index'])->name('welcome');
 
 Route::get('no-email', 'Auth\AuthController@noEmail');
 
