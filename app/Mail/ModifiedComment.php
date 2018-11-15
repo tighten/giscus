@@ -5,7 +5,6 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ModifiedComment extends Mailable
 {
@@ -27,6 +26,7 @@ class ModifiedComment extends Mailable
     public function build()
     {
         return $this->view('emails.edit-comment')
+            ->text('emails.edit-comment_plain')
             ->subject('A comment on one of your gists was modified!');
     }
 }
