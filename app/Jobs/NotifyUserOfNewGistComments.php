@@ -18,6 +18,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
     public $tries = 5;
+
     private $user;
 
     public function __construct($user)
@@ -29,16 +30,19 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
     {
         Log::debug('Notify user? user [' . $this->user->id . ']');
 
-        // @todo: Do a single lookup of all notified comments for this user, so
-        // we can be hitting the DB just once (unless we're hitting it to write
-        // a new "notified comment" entry), instead of once *per comment*
-
         try {
+            $notifiedCommentIds = NotifiedComment::pluck('github_id');
+
             foreach ($gistClient->all($this->user) as $gist) {
                 Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . ']');
-                foreach ($githubClient->api('gist')->comments()->all($gist['id']) as $comment) {
-                    $this->handleComment($comment, $gist, $this->user);
-                }
+
+                collect($githubClient->api('gist')->comments()->all($gist['id']))
+                    ->filter(function ($comment) use ($notifiedCommentIds) {
+                        return ! $notifiedCommentIds->contains($comment['id']);
+                    })
+                    ->each(function ($comment) use ($gist) {
+                        $this->handleComment($comment, $gist, $this->user);
+                    });
             }
         } catch (GithubException $e) {
             Log::info(sprintf(
