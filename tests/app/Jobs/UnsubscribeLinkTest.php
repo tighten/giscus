@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\App\Jobs;
+namespace Tests\app\Jobs;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

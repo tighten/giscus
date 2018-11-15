@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\App\Jobs;
+namespace Tests\app\Jobs;
 
 use App\GitHubMarkdownParser;
 use App\Jobs\NotifyUserOfNewGistComment;
-use App\Mail\ModifiedComment;
 use App\Mail\NewComment;
 use App\NotifiedComment;
 use App\User;
@@ -45,7 +44,7 @@ class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
         });
     }
 
-    public function testItSendsEditCommentEmailWhenACommentHasBeenEdited()
+    public function testItDoesNotSendEmailWhenACommentHasBeenEdited()
     {
         $this->createNotifiedComment();
 
@@ -57,9 +56,7 @@ class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
 
         dispatch(new NotifyUserOfNewGistComment($this->user, $comment, $gist = 'null'));
 
-        Mail::assertSent(ModifiedComment::class, function ($mail) {
-            return $mail->hasTo($this->user->email);
-        });
+        Mail::assertNothingSent();
     }
 
     private function createNotifiedComment()

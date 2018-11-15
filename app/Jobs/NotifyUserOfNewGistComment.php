@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\GitHubMarkdownParser;
-use App\Mail\ModifiedComment;
 use App\Mail\NewComment;
 use App\NotifiedComment;
 use Carbon\Carbon;
@@ -50,11 +49,9 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
         $parser = app()->make(GitHubMarkdownParser::class);
         $parser->authenticateFor($user);
 
-        $email = $this->isCommentNew() ?
-            new NewComment($comment, $gist, $parser->parse($comment['body']), $user) :
-            new ModifiedComment($comment, $gist, $parser->parse($comment['body']), $user);
-
-        Mail::to($user)->send($email);
+        Mail::to($user)->send(
+            new NewComment($comment, $gist, $parser->parse($comment['body']), $user)
+        );
     }
 
     private function markCommentAsNotified($comment)
@@ -71,13 +68,6 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
     private function commentNoLongerNeedsNotification()
     {
         return NotifiedComment::where('github_id', $this->comment['id'])
-            ->where('github_updated_at', $this->comment['updated_at'])
             ->count() > 0;
-    }
-
-    private function isCommentNew()
-    {
-        return 0 === NotifiedComment::where('github_id', $this->comment['id'])
-            ->count();
     }
 }
