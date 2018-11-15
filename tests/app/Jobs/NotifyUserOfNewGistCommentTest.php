@@ -7,6 +7,7 @@ use App\Jobs\NotifyUserOfNewGistComment;
 use App\Mail\NewComment;
 use App\NotifiedComment;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
 use Tests\BrowserKitTestCase;
@@ -17,13 +18,17 @@ class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
 
     protected $mailSendData;
 
+    private $user;
+
     protected function setUp()
     {
         parent::setUp();
 
         Mail::fake();
 
-        $this->user = factory(User::class)->create();
+        $this->user = factory(User::class)->make();
+        $this->user->created_at = Carbon::now()->year(2016);
+        $this->user->save();
 
         $gitHubMarkdownParserMock = $this->createMock(GitHubMarkdownParser::class);
         $this->app->instance(GitHubMarkdownParser::class, $gitHubMarkdownParserMock);
@@ -35,6 +40,9 @@ class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
             'id' => 2,
             'updated_at' => '2017-10-03T02:03:04Z',
             'body' => 'body',
+            'user' => [
+                'id' => 'testId',
+            ],
         ];
 
         dispatch(new NotifyUserOfNewGistComment($this->user, $comment, $gist = null));
@@ -52,9 +60,29 @@ class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
             'id' => 1,
             'updated_at' => '2017-10-03T02:03:04Z',
             'body' => 'body',
+            'user' => [
+                'id' => 'testId',
+            ],
         ];
 
         dispatch(new NotifyUserOfNewGistComment($this->user, $comment, $gist = 'null'));
+
+        Mail::assertNothingSent();
+    }
+
+    public function testItDoesNotSendEmailWhenACommentWasBeforeGiscusUserCreated()
+    {
+        $comment = [
+            'id' => 1,
+            'updated_at' => '2017-10-03T02:03:04Z',
+            'body' => 'body',
+        ];
+
+        $user = factory(User::class)->make();
+        $user->created_at = Carbon::now();
+        $user->save();
+
+        dispatch(new NotifyUserOfNewGistComment($user, $comment, $gist = 'null'));
 
         Mail::assertNothingSent();
     }

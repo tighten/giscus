@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Concerns\IdentifiesIfACommentNeedsNotification;
 use App\GistClient;
 use App\NotifiedComment;
 use Exception;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Log;
 
 class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels, DispatchesJobs;
+    use InteractsWithQueue, SerializesModels, DispatchesJobs, IdentifiesIfACommentNeedsNotification;
 
     public $tries = 5;
 
@@ -38,7 +39,8 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
                 collect($githubClient->api('gist')->comments()->all($gist['id']))
                     ->filter(function ($comment) use ($notifiedCommentIds) {
-                        return ! $notifiedCommentIds->contains($comment['id']);
+                        return (! $notifiedCommentIds->contains($comment['id']))
+                            && $this->commentNeedsNotification($comment, $this->user);
                     })
                     ->each(function ($comment) use ($gist) {
                         $this->handleComment($comment, $gist, $this->user);
@@ -71,19 +73,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
     {
         Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . '] comment [' . $comment['id'] . ']');
 
-        if ($this->commentNeedsNotification($comment, $user)) {
-            $this->notifyComment($comment, $gist, $user);
-        }
-    }
-
-    private function commentNeedsNotification($comment, $user)
-    {
-        if ($comment['user']['id'] == $user->github_id) {
-            return false;
-        }
-
-        return NotifiedComment::where('github_id', $comment['id'])
-            ->count() == 0;
+        $this->notifyComment($comment, $gist, $user);
     }
 
     private function notifyComment($comment, $gist, $user)

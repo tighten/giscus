@@ -7,6 +7,7 @@ use App\Jobs\NotifyUserOfNewGistComment;
 use App\Jobs\NotifyUserOfNewGistComments;
 use App\NotifiedComment;
 use App\User;
+use Carbon\Carbon;
 use Github\Client;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Bus;
@@ -68,6 +69,30 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
             'github_id' => $comment['id'],
             'github_updated_at' => $comment['updated_at'],
         ]);
+
+        $gistClientMock = $this->createMock(GistClient::class);
+        $gistClientMock->method('all')->willReturn(collect([['id' => 'testId']]));
+
+        $githubClientMock = Mockery::mock(Client::class);
+        $githubClientMock->shouldReceive('api->comments->all')->andReturn([$comment]);
+
+        $NotifyUserOfNewGistComments = new NotifyUserOfNewGistComments($user);
+        $NotifyUserOfNewGistComments->handle($gistClientMock, $githubClientMock);
+
+        Bus::assertNotDispatched(NotifyUserOfNewGistComment::class);
+    }
+
+    public function testItDoesNotDispatchIndividualCommentNotificationJobWhenACommentWasBeforeGiscusUserCreated()
+    {
+        $comment = [
+            'id' => 1,
+            'updated_at' => '2017-10-03T02:03:04Z',
+            'body' => 'body',
+        ];
+
+        $user = factory(User::class)->make();
+        $user->created_at = Carbon::now();
+        $user->save();
 
         $gistClientMock = $this->createMock(GistClient::class);
         $gistClientMock->method('all')->willReturn(collect([['id' => 'testId']]));
