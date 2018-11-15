@@ -78,12 +78,11 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     private function commentNeedsNotification($comment, $user)
     {
-        if ($comment['updated_at'] < $user->created_at || $comment['user']['id'] == $user->github_id) {
+        if ($comment['user']['id'] == $user->github_id) {
             return false;
         }
 
         return NotifiedComment::where('github_id', $comment['id'])
-            ->where('github_updated_at', $comment['updated_at'])
             ->count() == 0;
     }
 
