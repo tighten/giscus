@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Concerns\IdentifiesIfACommentNeedsNotification;
 use App\GitHubMarkdownParser;
 use App\Mail\NewComment;
 use App\NotifiedComment;
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Mail;
 
 class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue, SerializesModels, IdentifiesIfACommentNeedsNotification;
+
     private $user;
     private $comment;
     private $gist;
@@ -28,7 +30,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
     public function handle()
     {
-        if ($this->commentNoLongerNeedsNotification()) {
+        if (! $this->commentNeedsNotification($this->comment, $this->user)) {
             Log::info(sprintf(
                 'Skipped emailing notification for comment %s because it no longer needs notification.',
                 $this->comment['id']
@@ -63,11 +65,5 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
         $eloquentComment->github_updated_at = Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $comment['updated_at']);
 
         $eloquentComment->save();
-    }
-
-    private function commentNoLongerNeedsNotification()
-    {
-        return NotifiedComment::where('github_id', $this->comment['id'])
-            ->count() > 0;
     }
 }
