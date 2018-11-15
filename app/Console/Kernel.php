@@ -32,6 +32,8 @@ class Kernel extends ConsoleKernel
         $schedule
             ->command('giscus:queueForUsers')
             ->everyThirtyMinutes();
+
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
     }
 
     /**

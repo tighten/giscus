@@ -17,7 +17,9 @@
         "pda/pheanstalk": "~3.0",
         "doctrine/dbal": "^2.5",
         "bugsnag/bugsnag-laravel": "^2.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "laravel/horizon": "^2.0",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

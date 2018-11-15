@@ -40,4 +40,8 @@ return [
         'client_secret' => env('GITHUB_SECRET'),
         'redirect' => env('GITHUB_URL'),
     ],
+
+    'slack' => [
+        'horizon_webhook_url' => env('SLACK_HORIZON_WEBHOOK_URL'),
+    ],
 ];
