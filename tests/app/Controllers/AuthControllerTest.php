@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\App\Controllers;
+namespace Tests\app\Controllers;
 
 use Tests\BrowserKitTestCase;
 
