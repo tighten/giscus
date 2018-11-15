@@ -51,10 +51,11 @@ return [
     | will be fired. Every connection / queue combination may have its
     | own, unique threshold (in seconds) before this event is fired.
     |
+    | 1800 -> 30min
     */
 
     'waits' => [
-        'redis:default' => 60,
+        'redis:default' => 1800,
     ],
 
     /*
