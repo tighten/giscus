@@ -14,7 +14,6 @@
         "laravel/tinker": "^1.0",
         "laravel/socialite": "~3.0",
         "knplabs/github-api": "~1.4",
-        "pda/pheanstalk": "~3.0",
         "doctrine/dbal": "^2.5",
         "bugsnag/bugsnag-laravel": "^2.0",
         "predis/predis": "^1.1",
