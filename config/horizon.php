@@ -121,4 +121,6 @@ return [
             ],
         ],
     ],
+
+    'users' => env('HORIZON_USER_EMAILS'),
 ];
