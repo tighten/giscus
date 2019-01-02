@@ -37,7 +37,7 @@ class GitHubMarkdownParser
             'text' => $markdown
         ]);
 
-        $response = $this->client->getHttpClient()->post('markdown', $body);
+        $response = $this->client->getHttpClient()->post('markdown', [], $body);
 
         return ResponseMediator::getContent($response);
     }
