@@ -29,11 +29,17 @@ php artisan key:generate
 
 - Create a [new OAuth App](https://github.com/settings/applications/new) in your github account:
 
-- Set the Github environment variables in your .env file
-> For example, if you are using [Laravel Valet](https://laravel.com/docs/5.5/valet), you likely have Giscus running on `http://giscus.dev`. Your Github .env variables should look like this:
+- Set the Github environment variables in your `.env` file, from a [generated OAuth app](https://github.com/settings/applications/new)
+> For example, if you are using [Laravel Valet](https://laravel.com/docs/valet), you likely have Giscus running on `http://giscus.test`. Your Github .env variables should look like this:
 
 ```dotenv
 GITHUB_ID=someLongString
 GITHUB_SECRET=someLongString
-GITHUB_URL=http://giscus.dev/auth/github/callback
+GITHUB_URL=http://giscus.test/auth/github/callback
+```
+
+- If you want the tests to work, copy `.env.test.example` to `.env.test` and set the following GitHub env var in `.env.test`, from a [generated token](https://github.com/settings/tokens):
+
+```dotenv
+TESTING_USER_GITHUB_API_TOKEN=someLongString
 ```
