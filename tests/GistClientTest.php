@@ -5,7 +5,7 @@ namespace Tests;
 use App\GistClient;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\App\Gist;
+use Tests\app\Gist;
 
 class GistClientTest extends BrowserKitTestCase
 {

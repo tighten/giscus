@@ -1,6 +1,6 @@
 <?php
 
-use Tests\App\Gist;
+use Tests\app\Gist;
 use App\NotifiedComment;
 use App\User;
 use Carbon\Carbon;
