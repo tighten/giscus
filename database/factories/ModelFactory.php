@@ -3,6 +3,7 @@
 use App\NotifiedComment;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->email,
         'avatar' => $faker->imageUrl,
-        'token' => str_random(40),
+        'token' => Str::random(40),
     ];
 });
 

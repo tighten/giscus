@@ -23,10 +23,10 @@ if (! function_exists('arrayfactory')) {
                         'avatar_url' => $faker->url,
                         'html_url' => $faker->url,
                         'login' => $faker->userName,
-                    ]
+                    ],
                 ];
         endswitch;
 
-        throw new Exception("Array factory $name not found.");
+        throw new Exception("Array factory {$name} not found.");
     }
 }

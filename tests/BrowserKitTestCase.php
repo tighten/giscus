@@ -11,22 +11,12 @@ use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
  */
 class BrowserKitTestCase extends BaseTestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
     protected $baseUrl = 'http://giscus.test';
 
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
     public function createApplication()
     {
         if (file_exists(dirname(__DIR__) . '/.env.test')) {
-            (new Dotenv(dirname(__DIR__), '.env.test'))->load();
+            Dotenv::create(dirname(__DIR__), '/.env.test')->load();
         }
 
         $app = require __DIR__ . '/../bootstrap/app.php';
@@ -41,7 +31,7 @@ class BrowserKitTestCase extends BaseTestCase
         parent::checkRequirements();
 
         if (file_exists(dirname(__DIR__) . '/.env.test')) {
-            (new Dotenv(dirname(__DIR__), '.env.test'))->load();
+            Dotenv::create(dirname(__DIR__), '/.env.test')->load();
         }
 
         collect($this->getAnnotations())->each(function ($location) {

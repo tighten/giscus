@@ -25,7 +25,7 @@
                         <img src="/giscus-logo.svg" class="giscus-logo" alt="Giscus">
                     </a>
                     <div class="navbar-buttons">
-                        @if (Auth::check())
+                        @if (auth()->check())
                             <a href="/logout" class="btn btn-default">
                                 Log out
                                 <i class="fa fa-sign-out"></i>
