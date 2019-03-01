@@ -34,7 +34,7 @@ class GitHubMarkdownParser
         }
 
         $body = json_encode([
-            'text' => $markdown
+            'text' => $markdown,
         ]);
 
         $response = $this->client->getHttpClient()->post('markdown', [], $body);

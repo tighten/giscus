@@ -58,7 +58,7 @@ class AuthController extends Controller
 
         $authUser = $this->findOrCreateUser($user);
 
-        Auth::login($authUser, true);
+        auth()->login($authUser, true);
 
         return redirect('home');
     }
@@ -85,7 +85,7 @@ class AuthController extends Controller
 
     public function getLogout()
     {
-        Auth::logout();
+        auth()->logout();
 
         return redirect('/');
     }

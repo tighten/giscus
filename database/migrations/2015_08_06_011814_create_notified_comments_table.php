@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateNotifiedCommentsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('notified_comments', function (Blueprint $table) {
@@ -20,11 +15,6 @@ class CreateNotifiedCommentsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::drop('notified_comments');

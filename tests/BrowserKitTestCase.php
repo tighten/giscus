@@ -11,18 +11,8 @@ use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
  */
 class BrowserKitTestCase extends BaseTestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
     protected $baseUrl = 'http://giscus.test';
 
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
     public function createApplication()
     {
         if (file_exists(dirname(__DIR__) . '/.env.test')) {

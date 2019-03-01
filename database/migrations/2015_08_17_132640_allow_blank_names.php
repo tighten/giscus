@@ -1,15 +1,9 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AllowBlankNames extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         // Moved to origin because SQlite ¯\(°_o)/¯
@@ -20,11 +14,6 @@ class AllowBlankNames extends Migration
          */
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         // Dropped for now because SQlite ¯\(°_o)/¯

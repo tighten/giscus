@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class AccountController extends Controller
@@ -19,9 +18,9 @@ class AccountController extends Controller
 
     public function cancel()
     {
-        Log::info('User ' . Auth::user()->id . ' (' . Auth::user()->email . ') canceled.');
+        Log::info('User ' . auth()->user()->id . ' (' . auth()->user()->email . ') canceled.');
 
-        Auth::user()->delete();
+        auth()->user()->delete();
 
         return redirect('/');
     }
