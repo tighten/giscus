@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Concerns\IdentifiesIfACommentNeedsNotification;
 use App\GistClient;
 use App\NotifiedComment;
+use Carbon\Carbon;
 use Exception;
 use Github\Client as GitHubClient;
 use Github\Exception\ExceptionInterface as GithubException;
@@ -35,6 +36,11 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
             $notifiedCommentIds = NotifiedComment::pluck('github_id');
 
             foreach ($gistClient->all($this->user) as $gist) {
+                if ($this->gistCreatedAfterTheDayOfReckoning($gist)) {
+                    Log::debug('Skipping gist created after the day of reckoning; gist [' . $gist['id'] . ']');
+                    return;
+                }
+
                 Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . ']');
 
                 collect($githubClient->api('gist')->comments()->all($gist['id']))
@@ -67,6 +73,13 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
             $this->release(2);
         }
+    }
+
+    private function gistCreatedAfterTheDayOfReckoning($gist)
+    {
+        $date = Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $gist['created_at']);
+        // Compare against the day GitHub added gist comment notifications *for new gists*
+        return $date->greaterThan(Carbon::createFromDate(2019, 5, 8, 'UTC')->startOfDay());
     }
 
     private function handleComment($comment, $gist, $user)

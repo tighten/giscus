@@ -27,7 +27,8 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
         Mail::fake();
     }
 
-    public function testItDispatchesIndividualCommentNotificationJobForNewComment()
+    /** @test */
+    function it_dispatches_individual_comment_notification_job_for_new_comment()
     {
         $user = factory(User::class)->create();
 
@@ -41,7 +42,7 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
         ];
 
         $gistClientMock = $this->createMock(GistClient::class);
-        $gistClientMock->method('all')->willReturn(collect([['id' => 'testId']]));
+        $gistClientMock->method('all')->willReturn(collect([['id' => 'testId', 'created_at' => '2018-01-01T01:01:01Z']]));
 
         $githubClientMock = Mockery::mock(Client::class);
         $githubClientMock->shouldReceive('api->comments->all')->andReturn([$comment]);
@@ -52,7 +53,8 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
         Bus::assertDispatched(NotifyUserOfNewGistComment::class);
     }
 
-    public function testItDoesNotDispatchesIndividualCommentNotificationJobForAlreadyNotifiedComment()
+    /** @test */
+    function it_does_not_dispatch_individual_comment_notification_job_for_already_notified_comment()
     {
         $user = factory(User::class)->create();
 
@@ -82,7 +84,8 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
         Bus::assertNotDispatched(NotifyUserOfNewGistComment::class);
     }
 
-    public function testItDoesNotDispatchIndividualCommentNotificationJobWhenACommentWasBeforeGiscusUserCreated()
+    /** @test */
+    function it_does_not_dispatch_individual_comment_notification_job_when_a_comment_was_before_giscus_user_create()
     {
         $comment = [
             'id' => 1,
@@ -99,6 +102,25 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
 
         $githubClientMock = Mockery::mock(Client::class);
         $githubClientMock->shouldReceive('api->comments->all')->andReturn([$comment]);
+
+        $NotifyUserOfNewGistComments = new NotifyUserOfNewGistComments($user);
+        $NotifyUserOfNewGistComments->handle($gistClientMock, $githubClientMock);
+
+        Bus::assertNotDispatched(NotifyUserOfNewGistComment::class);
+    }
+
+    // https://github.com/tightenco/giscus/issues/66
+    /** @test */
+    function it_does_not_dispatch_individual_comment_notification_job_when_a_gist_was_after_the_great_day_of_reckoning()
+    {
+        $user = factory(User::class)->make();
+        $user->created_at = Carbon::now();
+        $user->save();
+
+        $gistClientMock = $this->createMock(GistClient::class);
+        $gistClientMock->method('all')->willReturn(collect([['id' => 'testId', 'created_at' => '2019-05-09T01:01:01Z']]));
+
+        $githubClientMock = Mockery::mock(Client::class);
 
         $NotifyUserOfNewGistComments = new NotifyUserOfNewGistComments($user);
         $NotifyUserOfNewGistComments->handle($gistClientMock, $githubClientMock);
