@@ -79,7 +79,7 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
     {
         $date = Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $gist['created_at']);
         // Compare against the day GitHub added gist comment notifications *for new gists*
-        return $date->greaterThan(Carbon::createFromDate(2019, 5, 8));
+        return $date->greaterThan(Carbon::createFromDate(2019, 5, 8, 'UTC')->startOfDay());
     }
 
     private function handleComment($comment, $gist, $user)
