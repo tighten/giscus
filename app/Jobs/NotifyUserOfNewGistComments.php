@@ -30,6 +30,9 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     public function handle(GistClient $gistClient, GitHubClient $githubClient)
     {
+        // Disable--just in case someone runs queueForUsers for some reason
+        return;
+
         Log::debug('Notify user? user [' . $this->user->id . ']');
 
         try {

@@ -1,6 +1,8 @@
 ## Giscus
 
-Note: As of May 8, 2019, GitHub added gist notifications natively. All GitHub users will be automatically subscribed to notifications for all *new* gists going forward, but you have to manually subscribe to old gists, so for now we've disabled gist comment notifications for all gists created on or after May 8. We're in touch with GitHub and will update our logic as we hear more from them.
+Note: As of May 8, 2019, GitHub added gist notifications natively. We're disabling the service, but keeping it online for posterity.
+
+https://github.blog/changelog/2019-06-03-authors-subscribed-to-gists/
 
 https://speakerdeck.com/mattstauffer/leveraging-laravel-launching-side-projects-quickly-with-laravel
 

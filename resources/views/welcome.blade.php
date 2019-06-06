@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-8 col-xs-12">
-            <p style="border: 2px solid black; padding: 1em">As of May 8, 2019, GitHub added gist notifications natively. All GitHub users will be automatically subscribed to notifications for all <em>new</em> gists going forward, but you have to manually subscribe to old gists, so for now we've disabled gist comment notifications for all gists created on or after May 8. We're in touch with GitHub and will update our logic as we hear more from them.</p>
+            <p style="border: 2px solid black; padding: 1em">As of May 8, 2019, <a href="https://github.blog/changelog/2019-06-03-authors-subscribed-to-gists/">GitHub added gist notifications natively</a>. We're disabling the service, but keeping the site up for posterity.</p>
 
             <h1 class="welcome-heading">Giscus provides the comment notification system your Gists deserve.</h1>
             <p>You love Gists. They're powerful, free, and convenient. But you've probably run into Gists' one big

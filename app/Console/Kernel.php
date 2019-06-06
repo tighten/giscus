@@ -17,11 +17,12 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule
-            ->command('giscus:queueForUsers')
-            ->everyThirtyMinutes();
+        // Disabled. No need anymore! https://github.blog/changelog/2019-06-03-authors-subscribed-to-gists/
+        // $schedule
+        //     ->command('giscus:queueForUsers')
+        //     ->everyThirtyMinutes();
 
-        $schedule->command('horizon:snapshot')->everyFiveMinutes();
+        // $schedule->command('horizon:snapshot')->everyFiveMinutes();
     }
 
     protected function commands()
