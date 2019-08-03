@@ -4,5 +4,6 @@
 /vendor
 /node_modules
 Homestead.yaml
+/public/storage
 .env
 .env.test
