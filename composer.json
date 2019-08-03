@@ -10,7 +10,7 @@
     "require": {
         "php": ">=7.2",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "5.2.*",
         "laravel/tinker": "^1.0",
         "laravel/socialite": "~3.0",
         "knplabs/github-api": "~2.0",
@@ -29,7 +29,9 @@
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^8.0",
         "laravel/browser-kit-testing": "^5.0",
-        "beyondcode/laravel-dump-server": "~1.0"
+        "beyondcode/laravel-dump-server": "~1.0",
+        "symfony/dom-crawler": "2.8.*|3.0.*",
+        "symfony/css-selector": "2.8.*|3.0.*"
     },
     "autoload": {
         "classmap": [
