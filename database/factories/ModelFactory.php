@@ -1,8 +1,8 @@
 <?php
 
-use App\NotifiedComment;
 use App\User;
 use Carbon\Carbon;
+use App\NotifiedComment;
 use Illuminate\Support\Str;
 
 /*

@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Github\Client as GitHubClient;
 use Github\ResultPager;
+use Github\Client as GitHubClient;
 
 class GistClient
 {

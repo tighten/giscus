@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     public function getVerifyHash()
     {
-        return hash('sha256', $this->github_id . $this->token);
+        return hash('sha256', $this->github_id.$this->token);
     }
 
     public function getUnsubscribeUrl()

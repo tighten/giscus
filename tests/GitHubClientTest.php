@@ -10,7 +10,7 @@ class GitHubClientTest extends BrowserKitTestCase
     public function itAuthenticatesWithGithubAndReturns5000RateLimitGuzzle()
     {
         if (! config('services.github.client_id') || ! config('services.github.client_secret')) {
-            $this->markTestSkipped("Missing GitHub credentials.");
+            $this->markTestSkipped('Missing GitHub credentials.');
         }
 
         $github = $this->app->make(GitHubClient::class);

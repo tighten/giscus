@@ -2,18 +2,18 @@
 
 namespace Tests\app\Jobs;
 
-use App\GistClient;
-use App\Jobs\NotifyUserOfNewGistComment;
-use App\Jobs\NotifyUserOfNewGistComments;
-use App\NotifiedComment;
+use Mockery;
 use App\User;
 use Carbon\Carbon;
 use Github\Client;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\GistClient;
+use App\NotifiedComment;
+use Tests\BrowserKitTestCase;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Mail;
-use Mockery;
-use Tests\BrowserKitTestCase;
+use App\Jobs\NotifyUserOfNewGistComment;
+use App\Jobs\NotifyUserOfNewGistComments;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
 {
@@ -28,7 +28,7 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     /** @test */
-    function it_dispatches_individual_comment_notification_job_for_new_comment()
+    public function it_dispatches_individual_comment_notification_job_for_new_comment()
     {
         $user = factory(User::class)->create();
 
@@ -54,7 +54,7 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     /** @test */
-    function it_does_not_dispatch_individual_comment_notification_job_for_already_notified_comment()
+    public function it_does_not_dispatch_individual_comment_notification_job_for_already_notified_comment()
     {
         $user = factory(User::class)->create();
 
@@ -85,7 +85,7 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     /** @test */
-    function it_does_not_dispatch_individual_comment_notification_job_when_a_comment_was_before_giscus_user_create()
+    public function it_does_not_dispatch_individual_comment_notification_job_when_a_comment_was_before_giscus_user_create()
     {
         $comment = [
             'id' => 1,
@@ -110,8 +110,9 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     // https://github.com/tightenco/giscus/issues/66
+
     /** @test */
-    function it_does_not_dispatch_individual_comment_notification_job_when_a_gist_was_after_the_great_day_of_reckoning()
+    public function it_does_not_dispatch_individual_comment_notification_job_when_a_gist_was_after_the_great_day_of_reckoning()
     {
         $user = factory(User::class)->make();
         $user->created_at = Carbon::now();

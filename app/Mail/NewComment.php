@@ -11,8 +11,11 @@ class NewComment extends Mailable
     use Queueable, SerializesModels;
 
     public $comment;
+
     public $gist;
+
     public $body;
+
     public $user;
 
     public function __construct($comment, $gist, $body, $user)

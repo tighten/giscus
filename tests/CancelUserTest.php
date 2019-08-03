@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use App\Jobs\NotifyUserOfNewGistComments;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\NotifyUserOfNewGistComments;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CancelUserTest extends BrowserKitTestCase
 {

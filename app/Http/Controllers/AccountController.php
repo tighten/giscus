@@ -18,7 +18,7 @@ class AccountController extends Controller
 
     public function cancel()
     {
-        Log::info('User ' . auth()->user()->id . ' (' . auth()->user()->email . ') canceled.');
+        Log::info('User '.auth()->user()->id.' ('.auth()->user()->email.') canceled.');
 
         auth()->user()->delete();
 

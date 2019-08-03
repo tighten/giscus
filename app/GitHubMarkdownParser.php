@@ -9,6 +9,7 @@ use Github\HttpClient\Message\ResponseMediator;
 class GitHubMarkdownParser
 {
     private $client;
+
     private $authenticated = false;
 
     public function __construct(Client $client)
@@ -30,7 +31,7 @@ class GitHubMarkdownParser
     public function parse($markdown)
     {
         if (! $this->authenticated) {
-            throw new Exception("Cannot use the GitHub Markdown Parser without authenticating a user.");
+            throw new Exception('Cannot use the GitHub Markdown Parser without authenticating a user.');
         }
 
         $body = json_encode([

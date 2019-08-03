@@ -3,11 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -22,7 +22,7 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ValidationException::class,
     ];
-    
+
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
@@ -32,7 +32,7 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-    
+
     /**
      * Report or log an exception.
      *

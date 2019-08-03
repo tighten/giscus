@@ -2,15 +2,15 @@
 
 namespace Tests\app\Jobs;
 
-use App\GitHubMarkdownParser;
-use App\Jobs\NotifyUserOfNewGistComment;
-use App\Mail\NewComment;
-use App\NotifiedComment;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Mail;
+use App\Mail\NewComment;
+use App\NotifiedComment;
+use App\GitHubMarkdownParser;
 use Tests\BrowserKitTestCase;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\NotifyUserOfNewGistComment;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class NotifyUserOfNewGistCommentTest extends BrowserKitTestCase
 {

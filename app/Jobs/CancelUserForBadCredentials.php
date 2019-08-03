@@ -3,11 +3,11 @@
 namespace App\Jobs;
 
 use App\Mail\BrokenGitHubToken;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CancelUserForBadCredentials extends Job implements ShouldQueue
 {
@@ -29,7 +29,7 @@ class CancelUserForBadCredentials extends Job implements ShouldQueue
 
     private function deleteUser()
     {
-        Log::info('Deleting user ' . $this->user->id . ' (' . $this->user->email . ') due to broken GitHub token.');
+        Log::info('Deleting user '.$this->user->id.' ('.$this->user->email.') due to broken GitHub token.');
 
         $this->user->delete();
     }

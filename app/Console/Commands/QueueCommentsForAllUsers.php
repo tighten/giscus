@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\NotifyUserOfNewGistComments;
 use App\User;
 use Illuminate\Console\Command;
+use App\Jobs\NotifyUserOfNewGistComments;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class QueueCommentsForAllUsers extends Command

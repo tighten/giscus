@@ -2,23 +2,25 @@
 
 namespace App\Jobs;
 
-use App\Concerns\IdentifiesIfACommentNeedsNotification;
-use App\GitHubMarkdownParser;
+use Carbon\Carbon;
 use App\Mail\NewComment;
 use App\NotifiedComment;
-use Carbon\Carbon;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\GitHubMarkdownParser;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Concerns\IdentifiesIfACommentNeedsNotification;
 
 class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels, IdentifiesIfACommentNeedsNotification;
 
     private $user;
+
     private $comment;
+
     private $gist;
 
     public function __construct($user, $comment, $gist)
@@ -43,7 +45,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
         $this->markCommentAsNotified($this->comment);
 
-        Log::info('Emailed notification for comment ' . $this->comment['id']);
+        Log::info('Emailed notification for comment '.$this->comment['id']);
     }
 
     private function sendNotificationEmail($comment, $gist, $user)
