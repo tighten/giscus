@@ -1,3 +1,5 @@
+![Giscus logo](https://raw.githubusercontent.com/tightenco/giscus/master/giscus-banner.png)
+
 ## Giscus
 
 Note: As of May 8, 2019, GitHub added gist notifications natively. We're disabling the service, but keeping it online for posterity.
