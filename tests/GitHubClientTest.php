@@ -14,8 +14,8 @@ class GitHubClientTest extends BrowserKitTestCase
         }
 
         $github = $this->app->make(GitHubClient::class);
-        $response = $github->getHttpClient()->get('rate_limit')->json();
-        $limit = $response['resources']['core']['limit'];
+        $response = $github->getHttpClient()->get('rate_limit');
+        $limit = $response->getHeader('X-RateLimit-Limit')[0];
         $this->assertEquals(5000, $limit);
     }
 }
