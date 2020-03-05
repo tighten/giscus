@@ -5,6 +5,7 @@ namespace Tests;
 use App\GistClient;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\app\Gist as MockGist;
 
 class GistClientTest extends BrowserKitTestCase
 {
@@ -19,30 +20,24 @@ class GistClientTest extends BrowserKitTestCase
         ]);
     }
 
-    /**
-     * @requires ApiTest
-     *
-     * Note: This test is not particularly useful unless you have a token for a user
-     * who has more than 30 gists, which is why it requires you to pass in a flag
-     * in order for it to run.
-     *
-     * Sadly, I don't have the time or energy to look up passing in a flag right now,
-     * so right now it's just set in the .env.test file.
-     */
     public function testItPullsMoreThan30GistsFromTestingUsersAccount()
     {
-        $this->markTestSkipped('Needs revisiting.');
+        $gistList = factory(MockGist::class, 35)->make()->toArray();
+        $client = $this->createMock(GistClient::class);
+        $client->method('all')->willReturn($gistList);
 
-        $client = $this->app->make(GistClient::class);
         $this->assertGreaterThan(30, count($client->all($this->user)));
     }
 
-    /**
-     * @requires ApiTest
-     */
     public function testItPullsAvailableGists()
     {
-        $client = $this->app->make(GistClient::class);
-        $this->assertNotEmpty($client->all($this->user));
+        $gistList = factory(MockGist::class, 2)->make()->toArray();
+        $client = $this->createMock(GistClient::class);
+        $client->method('all')->willReturn($gistList);
+        $response = $client->all($this->user);
+
+        $this->assertNotEmpty($response);
+        $this->assertArrayNotHasKey('url', $response);
+        $this->assertArrayNotHasKey('files', $response);
     }
 }
