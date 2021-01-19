@@ -8,7 +8,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
