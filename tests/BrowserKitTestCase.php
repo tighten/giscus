@@ -15,11 +15,11 @@ class BrowserKitTestCase extends BaseTestCase
 
     public function createApplication()
     {
-        if (file_exists(dirname(__DIR__) . '/.env.test')) {
+        if (file_exists(dirname(__DIR__).'/.env.test')) {
             Dotenv::create(dirname(__DIR__), '/.env.test')->load();
         }
 
-        $app = require __DIR__ . '/../bootstrap/app.php';
+        $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 
@@ -30,7 +30,7 @@ class BrowserKitTestCase extends BaseTestCase
     {
         parent::checkRequirements();
 
-        if (file_exists(dirname(__DIR__) . '/.env.test')) {
+        if (file_exists(dirname(__DIR__).'/.env.test')) {
             Dotenv::create(dirname(__DIR__), '/.env.test')->load();
         }
 

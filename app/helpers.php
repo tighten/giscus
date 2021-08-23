@@ -14,7 +14,7 @@ if (! function_exists('arrayfactory')) {
                     'description' => $faker->paragraph,
                 ];
 
-            case 'comment':
+        case 'comment':
                 return [
                     'id' => $faker->randomDigit,
                     'updated_at' => Carbon::now()->subDays(3)->format('Y-m-d\TH:i:s\Z'),

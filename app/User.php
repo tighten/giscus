@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     public function getVerifyHash()
     {
-        return hash('sha256', $this->github_id . $this->token);
+        return hash('sha256', $this->github_id.$this->token);
     }
 
     public function getUnsubscribeUrl()

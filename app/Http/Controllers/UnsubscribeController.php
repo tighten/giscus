@@ -20,7 +20,8 @@ class UnsubscribeController extends Controller
         try {
             $user = User::where('github_id', $id)->firstOrFail();
         } catch (Exception $e) {
-            Log::info('User not found with github_id ' . $id);
+            Log::info('User not found with github_id '.$id);
+
             return redirect('/');
         }
 

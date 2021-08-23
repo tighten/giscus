@@ -33,18 +33,19 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
         // Disable--just in case someone runs queueForUsers for some reason
         return;
 
-        Log::debug('Notify user? user [' . $this->user->id . ']');
+        Log::debug('Notify user? user ['.$this->user->id.']');
 
         try {
             $notifiedCommentIds = NotifiedComment::pluck('github_id');
 
             foreach ($gistClient->all($this->user) as $gist) {
                 if ($this->gistCreatedAfterTheDayOfReckoning($gist)) {
-                    Log::debug('Skipping gist created after the day of reckoning; gist [' . $gist['id'] . ']');
+                    Log::debug('Skipping gist created after the day of reckoning; gist ['.$gist['id'].']');
+
                     return;
                 }
 
-                Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . ']');
+                Log::debug('Notify comment? user ['.$this->user->id.'] gist ['.$gist['id'].']');
 
                 collect($githubClient->api('gist')->comments()->all($gist['id']))
                     ->filter(function ($comment) use ($notifiedCommentIds) {
@@ -87,14 +88,14 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
 
     private function handleComment($comment, $gist, $user)
     {
-        Log::debug('Notify comment? user [' . $this->user->id . '] gist [' . $gist['id'] . '] comment [' . $comment['id'] . ']');
+        Log::debug('Notify comment? user ['.$this->user->id.'] gist ['.$gist['id'].'] comment ['.$comment['id'].']');
 
         $this->notifyComment($comment, $gist, $user);
     }
 
     private function notifyComment($comment, $gist, $user)
     {
-        Log::debug('Queue notification! user [' . $this->user->id . '] gist [' . $gist['id'] . '] comment [' . $comment['id'] . ']');
+        Log::debug('Queue notification! user ['.$this->user->id.'] gist ['.$gist['id'].'] comment ['.$comment['id'].']');
 
         $this->dispatch(new NotifyUserOfNewGistComment(
             $user,
@@ -106,7 +107,8 @@ class NotifyUserOfNewGistComments extends Job implements ShouldQueue
     private function handleGitHubException($e)
     {
         if ($e->getMessage() == 'Bad credentials') {
-            Log::error('Bad credentials; cancelling. For user ' . $this->user->id);
+            Log::error('Bad credentials; cancelling. For user '.$this->user->id);
+
             return $this->handleBrokenGitHubToken();
         }
 

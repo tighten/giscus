@@ -29,7 +29,7 @@ class CancelUserForBadCredentials extends Job implements ShouldQueue
 
     private function deleteUser()
     {
-        Log::info('Deleting user ' . $this->user->id . ' (' . $this->user->email . ') due to broken GitHub token.');
+        Log::info('Deleting user '.$this->user->id.' ('.$this->user->email.') due to broken GitHub token.');
 
         $this->user->delete();
     }

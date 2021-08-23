@@ -30,7 +30,7 @@ class GitHubMarkdownParser
     public function parse($markdown)
     {
         if (! $this->authenticated) {
-            throw new Exception("Cannot use the GitHub Markdown Parser without authenticating a user.");
+            throw new Exception('Cannot use the GitHub Markdown Parser without authenticating a user.');
         }
 
         $body = json_encode([

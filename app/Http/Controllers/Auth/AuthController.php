@@ -79,7 +79,7 @@ class AuthController extends Controller
             'email' => $user->email,
             'github_id' => $user->id,
             'avatar' => $user->avatar,
-            'token' => $user->token
+            'token' => $user->token,
         ]);
     }
 

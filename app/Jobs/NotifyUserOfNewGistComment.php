@@ -43,7 +43,7 @@ class NotifyUserOfNewGistComment extends Job implements ShouldQueue
 
         $this->markCommentAsNotified($this->comment);
 
-        Log::info('Emailed notification for comment ' . $this->comment['id']);
+        Log::info('Emailed notification for comment '.$this->comment['id']);
     }
 
     private function sendNotificationEmail($comment, $gist, $user)

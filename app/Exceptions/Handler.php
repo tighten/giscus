@@ -22,7 +22,7 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ValidationException::class,
     ];
-    
+
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
@@ -32,7 +32,7 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-    
+
     /**
      * Report or log an exception.
      *
