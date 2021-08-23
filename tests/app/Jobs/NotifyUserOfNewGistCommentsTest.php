@@ -28,7 +28,7 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     /** @test */
-    function it_dispatches_individual_comment_notification_job_for_new_comment()
+    public function it_dispatches_individual_comment_notification_job_for_new_comment()
     {
         // This test fails when the app is disabled. Commenting out line 34 in
         // App\Jobs\NotifyUserOfNewGistComments makes this pass
@@ -58,7 +58,7 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     /** @test */
-    function it_does_not_dispatch_individual_comment_notification_job_for_already_notified_comment()
+    public function it_does_not_dispatch_individual_comment_notification_job_for_already_notified_comment()
     {
         $user = factory(User::class)->create();
 
@@ -89,7 +89,7 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     /** @test */
-    function it_does_not_dispatch_individual_comment_notification_job_when_a_comment_was_before_giscus_user_create()
+    public function it_does_not_dispatch_individual_comment_notification_job_when_a_comment_was_before_giscus_user_create()
     {
         $comment = [
             'id' => 1,
@@ -114,8 +114,9 @@ class NotifyUserOfNewGistCommentsTest extends BrowserKitTestCase
     }
 
     // https://github.com/tightenco/giscus/issues/66
+
     /** @test */
-    function it_does_not_dispatch_individual_comment_notification_job_when_a_gist_was_after_the_great_day_of_reckoning()
+    public function it_does_not_dispatch_individual_comment_notification_job_when_a_gist_was_after_the_great_day_of_reckoning()
     {
         $user = factory(User::class)->make();
         $user->created_at = Carbon::now();

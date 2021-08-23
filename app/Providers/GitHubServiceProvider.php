@@ -13,8 +13,9 @@ class GitHubServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('psr-6-file-cache', function ($app) {
-            $filesystemAdapter = new Local(sys_get_temp_dir() . '/github-api-cache');
+            $filesystemAdapter = new Local(sys_get_temp_dir().'/github-api-cache');
             $filesystem = new Filesystem($filesystemAdapter);
+
             return new FilesystemCachePool($filesystem);
         });
 
