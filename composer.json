@@ -21,7 +21,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "php-http/guzzle6-adapter": "^2.0",
         "cache/filesystem-adapter": "^1.0",
-        "vlucas/phpdotenv": "^3.3"
+        "vlucas/phpdotenv": "^3.3",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
