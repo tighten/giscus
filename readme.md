@@ -2,6 +2,8 @@
 
 ## Giscus
 
+Note: As of March 5, 2020 Giscus just has a static homepage. No need to update anything on this code because there is no longer a staging site.
+
 Note: As of May 8, 2019, GitHub added gist notifications natively. We're disabling the service, but keeping it online for posterity.
 
 https://github.blog/changelog/2019-06-03-authors-subscribed-to-gists/
